@@ -1,6 +1,6 @@
 # InputFields
 
-![Alt Text](https://drive.google.com/uc?export=view&id=17lINbt78vJAL8rDBMCHKELcL3oRHojPQ)
+![Alt Text](https://drive.google.com/uc?export=view&id=1pAZVGcWHw1b8ZPbbUXMTUVeCbcsGjw0t)
 
 ### Gradle Setup
 
