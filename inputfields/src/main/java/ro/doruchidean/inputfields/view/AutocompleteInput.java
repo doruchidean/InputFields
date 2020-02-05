@@ -1,0 +1,227 @@
+package ro.doruchidean.inputfields.view;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.List;
+
+import ro.doruchidean.inputfields.R;
+import ro.doruchidean.inputfields.validators.InputValidator;
+
+public class AutocompleteInput extends LinearLayout {
+
+    private final int
+            INPUT_TYPE_TEXT = 0,
+            INPUT_TYPE_PASSWORD = 1,
+            INPUT_TYPE_EMAIL = 2,
+            INPUT_TYPE_PHONE = 3,
+            INPUT_TYPE_DIGITS = 4;
+
+    private TextView tvLabel;
+    private AutoCompleteTextView autoCompleteTextView;
+    private TextView tvError;
+
+    private InputValidator validator;
+
+    private int normalBackground;
+    private int errorBackground;
+    private int correctBackground;
+
+    /**
+     * If set, it will invoke the callback method each time the validation is calculated
+     */
+    @Nullable
+    private InputField.ValidationChangedListener validationListener;
+    private ArrayAdapter<String> listAdapter;
+
+    public AutocompleteInput(@NonNull Context context,
+                             @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        initUI(context);
+        setupAttrs(context, attrs);
+    }
+
+    private void initUI(Context context) {
+        setOrientation(VERTICAL);
+        LayoutInflater.from(context).inflate(R.layout.view_autocomplete_input, this, true);
+        tvLabel = findViewById(R.id.tv_autocomplete_label);
+        tvError = findViewById(R.id.tv_autocomplete_error);
+        autoCompleteTextView = findViewById(R.id.autocomplete_tv);
+        autoCompleteTextView.setOnItemSelectedListener(getOnSelectListener());
+        autoCompleteTextView.addTextChangedListener(getOnInputChangedListener());
+        findViewById(R.id.btn_open).setOnClickListener(onOpenListener());
+    }
+
+    private OnClickListener onOpenListener() {
+        return new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autoCompleteTextView.showDropDown();
+            }
+        };
+    }
+
+    private AdapterView.OnItemSelectedListener getOnSelectListener() {
+        return new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //todo
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+    }
+
+    private TextWatcher getOnInputChangedListener() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //stub
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s)) {
+                    setNormalBackground();
+                    return;
+                }
+                if (validator == null) {
+                    return;
+                }
+                Integer errorMessage = validator.getErrorMessageResId(s.toString());
+                if (errorMessage != null) {
+                    showError(errorMessage);
+                } else {
+                    hideError();
+                }
+                if (validationListener != null) {
+                    validationListener.onInputValidationChanged();
+                }
+            }
+        };
+    }
+
+    private void setupAttrs(Context context, AttributeSet attrs) {
+        if (attrs == null) {
+            return;
+        }
+        TypedArray attrsArray = context.getTheme().obtainStyledAttributes(attrs,
+                R.styleable.AutocompleteInput, 0, 0);
+        String label;
+        String hint;
+        int inputType;
+        boolean textAllCaps;
+        int threashHold;
+        try {
+            label = attrsArray.getString(R.styleable.AutocompleteInput_label);
+            hint = attrsArray.getString(R.styleable.AutocompleteInput_hint);
+            inputType = attrsArray.getInteger(R.styleable.AutocompleteInput_inputType, INPUT_TYPE_TEXT);
+            textAllCaps = attrsArray.getBoolean(R.styleable.AutocompleteInput_textAllCaps, false);
+            normalBackground = attrsArray.getResourceId(R.styleable.AutocompleteInput_normalBackground, -1);
+            errorBackground = attrsArray.getResourceId(R.styleable.AutocompleteInput_errorBackground, -1);
+            correctBackground = attrsArray.getResourceId(R.styleable.AutocompleteInput_correctBackground, -1);
+            threashHold = attrsArray.getInt(R.styleable.AutocompleteInput_threshHold, 1);
+        } finally {
+            attrsArray.recycle();
+        }
+        autoCompleteTextView.setHint(hint);
+        autoCompleteTextView.setAllCaps(textAllCaps);
+        autoCompleteTextView.setThreshold(threashHold);
+        tvLabel.setText(label);
+        if (inputType == INPUT_TYPE_PASSWORD) {
+            autoCompleteTextView.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            autoCompleteTextView.setTransformationMethod(new PasswordTransformationMethod());
+        }
+        if (inputType == INPUT_TYPE_EMAIL) {
+            autoCompleteTextView.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        }
+        if (inputType == INPUT_TYPE_PHONE) {
+            autoCompleteTextView.setInputType(InputType.TYPE_CLASS_PHONE);
+        }
+        if (inputType == INPUT_TYPE_DIGITS) {
+            autoCompleteTextView.setInputType(InputType.TYPE_CLASS_NUMBER);
+        }
+    }
+
+    private void showError(int errorMessageReId) {
+        tvError.setVisibility(VISIBLE);
+        tvError.setText(errorMessageReId);
+        autoCompleteTextView.setBackgroundResource(getErrorBackground());
+    }
+
+    private void hideError() {
+        tvError.setVisibility(GONE);
+        tvError.setText(null);
+        autoCompleteTextView.setBackgroundResource(isValid() ? getCorrectBackground() : getNormalBackground());
+    }
+
+    private void setNormalBackground() {
+        autoCompleteTextView.setBackgroundResource(getNormalBackground());
+    }
+
+    private int getNormalBackground() {
+        return normalBackground > 0 ? normalBackground : R.drawable.bg_input_state_normal;
+    }
+
+    private int getErrorBackground() {
+        return errorBackground > 0 ? errorBackground : R.drawable.bg_input_state_error;
+    }
+
+    private int getCorrectBackground() {
+        return correctBackground > 0 ? correctBackground : R.drawable.bg_input_state_normal;
+    }
+
+    public @Nullable String getInput() {
+        return autoCompleteTextView.getText().toString();
+    }
+
+    public void setItems(List<String> items) {
+        listAdapter = new ArrayAdapter<>(getContext(),
+                R.layout.view_spinner_item, R.id.tv_spinner_text, items);
+        autoCompleteTextView.setAdapter(listAdapter);
+    }
+
+    public void setSelectedItem(@Nullable String item) {
+        if (item != null) {
+            autoCompleteTextView.setText(item);
+        }
+    }
+
+    public void setValidator(InputValidator validator,
+                             @Nullable InputField.ValidationChangedListener withListener) {
+        this.validator = validator;
+        this.validationListener = withListener;
+    }
+
+    public boolean isValid() {
+        if (validator == null) {
+            return true;
+        } else {
+            return validator.getErrorMessageResId(getInput()) == null;
+        }
+    }
+}

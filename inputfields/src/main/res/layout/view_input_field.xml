@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/tv_autocomplete_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_gray"
+        android:textAllCaps="true"
+        android:layout_marginBottom="@dimen/quarter_horizontal_padding"
+        android:textSize="@dimen/text_small"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_input_field_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_input_state_normal"
+        android:layout_below="@id/tv_autocomplete_label"
+        android:minHeight="@dimen/min_input_field_height"
+        android:paddingStart="@dimen/half_horizontal_padding"
+        android:paddingEnd="@dimen/half_horizontal_padding"
+        />
+
+    <TextView
+        android:id="@+id/tv_input_field_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:layout_below="@id/et_input_field_input"
+        android:layout_marginTop="@dimen/quarter_horizontal_padding"
+        android:textSize="@dimen/text_small"
+        android:visibility="gone"
+        />
+
+</merge>

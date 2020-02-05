@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:padding="@dimen/horizontal_padding">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="InputField"
+        />
+
+    <ro.doruchidean.inputfields.view.InputField
+        android:id="@+id/input_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="CNP"
+        app:hint="Type here"
+        app:textAllCaps="true"
+        app:inputType="digits"
+        app:normalBackground="@color/text_gray"
+        app:errorBackground="@color/light_red"
+        app:correctBackground="@color/green"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/horizontal_padding"
+        android:text="AutocompleteInput"
+        />
+
+    <ro.doruchidean.inputfields.view.AutocompleteInput
+        android:id="@+id/autocomplete_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="Select an item"
+        app:textAllCaps="true"
+        app:inputType="text"
+        app:hint="Must contain character `9`, 5 chars long"
+        app:threshHold="1"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/horizontal_padding"
+        android:text="SpinnerInput"
+        />
+
+    <ro.doruchidean.inputfields.view.SpinnerInput
+        android:id="@+id/spinner_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="Select an item"
+        />
+
+</LinearLayout>

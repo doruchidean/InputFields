@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SpinnerInput">
+        <attr name="label" format="string"/>
+        <attr name="normalBackground" format="reference"/>
+        <attr name="errorBackground" format="reference"/>
+        <attr name="correctBackground" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="InputField" parent="SpinnerInput">
+        <attr name="label"/>
+        <attr name="hint" format="string"/>
+        <attr name="inputType" format="enum">
+            <enum name="text" value="0"/>
+            <enum name="password" value="1"/>
+            <enum name="email" value="2"/>
+            <enum name="phone" value="3"/>
+            <enum name="digits" value="4"/>
+        </attr>
+        <attr name="textAllCaps"/>
+        <attr name="normalBackground"/>
+        <attr name="errorBackground"/>
+        <attr name="correctBackground"/>
+    </declare-styleable>
+
+    <declare-styleable name="AutocompleteInput" parent="InputField">
+        <attr name="label"/>
+        <attr name="hint"/>
+        <attr name="inputType"/>
+        <attr name="textAllCaps"/>
+        <attr name="normalBackground"/>
+        <attr name="errorBackground"/>
+        <attr name="correctBackground"/>
+        <attr name="threshHold" format="integer"/>
+    </declare-styleable>
+</resources>

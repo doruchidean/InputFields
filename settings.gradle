@@ -1,0 +1,2 @@
+include ':app', ':inputfields'
+rootProject.name='InputFieldsExample'
