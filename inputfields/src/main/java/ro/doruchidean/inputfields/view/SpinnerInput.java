@@ -31,7 +31,7 @@ public class SpinnerInput extends FrameLayout {
     private int normalBackground;
     private int errorBackground;
     private int correctBackground;
-    private AdapterView.OnItemSelectedListener selectedListener;
+    private SelectionListener selectionListener;
 
     public SpinnerInput(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -62,22 +62,20 @@ public class SpinnerInput extends FrameLayout {
                 if (validationListener != null) {
                     validationListener.onInputValidationChanged();
                 }
-                if (selectedListener != null) {
-                    selectedListener.onItemSelected(parent, view, position, id);
+                if (selectionListener != null) {
+                    selectionListener.onSpinnerItemSelected(getInput());
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                if (selectedListener != null) {
-                    selectedListener.onNothingSelected(parent);
-                }
+                //stub
             }
         };
     }
 
-    public void setSelectionListener(AdapterView.OnItemSelectedListener listener) {
-        selectedListener = listener;
+    public void setSelectionListener(SelectionListener listener) {
+        selectionListener = listener;
     }
 
     public void showError(@Nullable Integer errorResId) {
@@ -146,5 +144,9 @@ public class SpinnerInput extends FrameLayout {
         if (item != null) {
             spinner.setSelection(listAdapter.getPosition(item));
         }
+    }
+
+    public interface SelectionListener {
+        void onSpinnerItemSelected(String item);
     }
 }
