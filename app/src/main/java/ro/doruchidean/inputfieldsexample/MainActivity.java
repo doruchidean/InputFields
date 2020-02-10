@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -82,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         autocompleteInput.setSelectionListener(new AutocompleteInput.SelectionListener() {
             @Override
             public void onAutocompleteItemSelected(String item) {
-                Log.e("tag", item + " was selected");
+                showToast("Autocomplete item selected: " + item);
             }
         });
     }

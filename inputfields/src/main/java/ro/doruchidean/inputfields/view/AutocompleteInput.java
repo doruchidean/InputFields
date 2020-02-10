@@ -64,7 +64,7 @@ public class AutocompleteInput extends LinearLayout {
         tvLabel = findViewById(R.id.tv_autocomplete_label);
         tvError = findViewById(R.id.tv_autocomplete_error);
         autoCompleteTextView = findViewById(R.id.autocomplete_tv);
-        autoCompleteTextView.setOnItemSelectedListener(getOnSelectListener());
+        autoCompleteTextView.setOnItemClickListener(getOnSelectListener());
         autoCompleteTextView.addTextChangedListener(getOnInputChangedListener());
         findViewById(R.id.btn_open).setOnClickListener(onOpenListener());
     }
@@ -78,18 +78,13 @@ public class AutocompleteInput extends LinearLayout {
         };
     }
 
-    private AdapterView.OnItemSelectedListener getOnSelectListener() {
-        return new AdapterView.OnItemSelectedListener() {
+    private AdapterView.OnItemClickListener getOnSelectListener() {
+        return new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (selectionListener != null) {
                     selectionListener.onAutocompleteItemSelected(listAdapter.getItem(position));
                 }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         };
     }
@@ -138,7 +133,7 @@ public class AutocompleteInput extends LinearLayout {
         String hint;
         int inputType;
         boolean textAllCaps;
-        int threashHold;
+        int threshHold;
         try {
             label = attrsArray.getString(R.styleable.AutocompleteInput_label);
             hint = attrsArray.getString(R.styleable.AutocompleteInput_hint);
@@ -147,13 +142,13 @@ public class AutocompleteInput extends LinearLayout {
             normalBackground = attrsArray.getResourceId(R.styleable.AutocompleteInput_normalBackground, -1);
             errorBackground = attrsArray.getResourceId(R.styleable.AutocompleteInput_errorBackground, -1);
             correctBackground = attrsArray.getResourceId(R.styleable.AutocompleteInput_correctBackground, -1);
-            threashHold = attrsArray.getInt(R.styleable.AutocompleteInput_threshHold, 1);
+            threshHold = attrsArray.getInt(R.styleable.AutocompleteInput_threshHold, 1);
         } finally {
             attrsArray.recycle();
         }
         autoCompleteTextView.setHint(hint);
         autoCompleteTextView.setAllCaps(textAllCaps);
-        autoCompleteTextView.setThreshold(threashHold);
+        autoCompleteTextView.setThreshold(threshHold);
         tvLabel.setText(label);
         if (inputType == INPUT_TYPE_PASSWORD) {
             autoCompleteTextView.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
