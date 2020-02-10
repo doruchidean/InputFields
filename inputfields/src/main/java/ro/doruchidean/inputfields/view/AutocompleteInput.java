@@ -49,6 +49,7 @@ public class AutocompleteInput extends LinearLayout {
     @Nullable
     private InputField.ValidationChangedListener validationListener;
     private ArrayAdapter<String> listAdapter;
+    private SelectionListener selectionListener;
 
     public AutocompleteInput(@NonNull Context context,
                              @Nullable AttributeSet attrs) {
@@ -81,7 +82,9 @@ public class AutocompleteInput extends LinearLayout {
         return new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //todo
+                if (selectionListener != null) {
+                    selectionListener.onAutocompleteItemSelected(listAdapter.getItem(position));
+                }
             }
 
             @Override
@@ -211,6 +214,10 @@ public class AutocompleteInput extends LinearLayout {
         }
     }
 
+    public void setSelectionListener(SelectionListener listener) {
+        this.selectionListener = listener;
+    }
+
     public void setValidator(InputValidator validator,
                              @Nullable InputField.ValidationChangedListener withListener) {
         this.validator = validator;
@@ -223,5 +230,9 @@ public class AutocompleteInput extends LinearLayout {
         } else {
             return validator.getErrorMessageResId(getInput()) == null;
         }
+    }
+
+    public interface SelectionListener {
+        void onAutocompleteItemSelected(String item);
     }
 }
