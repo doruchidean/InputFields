@@ -20,6 +20,8 @@
         android:minHeight="@dimen/min_input_field_height"
         android:paddingStart="@dimen/half_horizontal_padding"
         android:paddingEnd="@dimen/half_horizontal_padding"
+        android:inputType="text"
+        android:imeOptions="actionNext"
         />
 
     <TextView
