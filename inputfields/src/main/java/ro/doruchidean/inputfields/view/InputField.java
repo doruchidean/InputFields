@@ -52,6 +52,8 @@ public class InputField extends LinearLayout {
 
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.view_input_field, this, true);
+        setFocusable(false);
+        setFocusableInTouchMode(false);
         tvLabel = findViewById(R.id.tv_autocomplete_label);
         etInput = findViewById(R.id.et_input_field_input);
         tvError = findViewById(R.id.tv_input_field_error);
