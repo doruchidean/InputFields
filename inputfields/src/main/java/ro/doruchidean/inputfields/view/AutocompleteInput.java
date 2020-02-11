@@ -227,6 +227,10 @@ public class AutocompleteInput extends LinearLayout {
         }
     }
 
+    public AutoCompleteTextView getInputView() {
+        return autoCompleteTextView;
+    }
+
     public interface SelectionListener {
         void onAutocompleteItemSelected(String item);
     }

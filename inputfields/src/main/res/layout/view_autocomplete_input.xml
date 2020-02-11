@@ -27,6 +27,7 @@
         android:paddingStart="@dimen/half_horizontal_padding"
         android:paddingEnd="@dimen/half_horizontal_padding"
         android:layout_below="@id/tv_autocomplete_label"
+        android:maxLines="1"
         android:inputType="text"
         android:imeOptions="actionNext"
         />

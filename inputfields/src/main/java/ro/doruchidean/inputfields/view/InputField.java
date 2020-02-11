@@ -170,6 +170,10 @@ public class InputField extends LinearLayout {
         }
     }
 
+    public AppCompatEditText getInputView() {
+        return etInput;
+    }
+
     public void setValidator(InputValidator validator, @Nullable ValidationChangedListener withListener) {
         this.validator = validator;
         this.validationListener = withListener;
