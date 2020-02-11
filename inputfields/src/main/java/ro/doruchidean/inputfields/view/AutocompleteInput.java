@@ -3,6 +3,7 @@ package ro.doruchidean.inputfields.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -134,6 +135,7 @@ public class AutocompleteInput extends LinearLayout {
         int inputType;
         boolean textAllCaps;
         int threshHold;
+        int maxChars;
         try {
             label = attrsArray.getString(R.styleable.AutocompleteInput_label);
             hint = attrsArray.getString(R.styleable.AutocompleteInput_hint);
@@ -143,12 +145,16 @@ public class AutocompleteInput extends LinearLayout {
             errorBackground = attrsArray.getResourceId(R.styleable.AutocompleteInput_errorBackground, -1);
             correctBackground = attrsArray.getResourceId(R.styleable.AutocompleteInput_correctBackground, -1);
             threshHold = attrsArray.getInt(R.styleable.AutocompleteInput_threshHold, 1);
+            maxChars = attrsArray.getInteger(R.styleable.AutocompleteInput_maxChars, -1);
         } finally {
             attrsArray.recycle();
         }
         autoCompleteTextView.setHint(hint);
         autoCompleteTextView.setAllCaps(textAllCaps);
         autoCompleteTextView.setThreshold(threshHold);
+        if (maxChars > 0) {
+            autoCompleteTextView.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxChars)});
+        }
         tvLabel.setText(label);
         if (inputType == INPUT_TYPE_PASSWORD) {
             autoCompleteTextView.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);

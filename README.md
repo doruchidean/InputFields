@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         <attr name="normalBackground"/>
         <attr name="errorBackground"/>
         <attr name="correctBackground"/>
+        <attr name="maxChars" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="AutocompleteInput">
@@ -170,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
         <attr name="errorBackground"/>
         <attr name="correctBackground"/>
         <attr name="threshHold" format="integer"/>
+        <attr name="maxChars"/>
     </declare-styleable>
 </resources>
 ```

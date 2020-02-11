@@ -21,6 +21,7 @@
         <attr name="normalBackground"/>
         <attr name="errorBackground"/>
         <attr name="correctBackground"/>
+        <attr name="maxChars" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="AutocompleteInput" parent="InputField">
@@ -32,5 +33,6 @@
         <attr name="errorBackground"/>
         <attr name="correctBackground"/>
         <attr name="threshHold" format="integer"/>
+        <attr name="maxChars"/>
     </declare-styleable>
 </resources>

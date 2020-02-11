@@ -3,6 +3,7 @@ package ro.doruchidean.inputfields.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -70,7 +71,7 @@ public class InputField extends LinearLayout {
         int inputType;
         String hint;
         boolean textAllCaps;
-
+        int maxChars;
         try {
             label = attrsArray.getString(R.styleable.InputField_label);
             inputType = attrsArray.getInteger(R.styleable.InputField_inputType, INPUT_TYPE_TEXT);
@@ -79,6 +80,7 @@ public class InputField extends LinearLayout {
             normalBackground = attrsArray.getResourceId(R.styleable.InputField_normalBackground, -1);
             errorBackground = attrsArray.getResourceId(R.styleable.InputField_errorBackground, -1);
             correctBackground = attrsArray.getResourceId(R.styleable.InputField_correctBackground, -1);
+            maxChars = attrsArray.getInteger(R.styleable.InputField_maxChars, -1);
         } finally {
             attrsArray.recycle();
         }
@@ -97,6 +99,9 @@ public class InputField extends LinearLayout {
         }
         if (inputType == INPUT_TYPE_DIGITS) {
             etInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+        }
+        if (maxChars > 0) {
+            etInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxChars)});
         }
         etInput.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN);
     }
