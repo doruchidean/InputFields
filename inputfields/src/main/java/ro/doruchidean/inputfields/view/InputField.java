@@ -17,6 +17,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 
+import java.util.ArrayList;
+
 import ro.doruchidean.inputfields.R;
 import ro.doruchidean.inputfields.validators.InputValidator;
 
@@ -100,9 +102,14 @@ public class InputField extends LinearLayout {
         if (inputType == INPUT_TYPE_DIGITS) {
             etInput.setInputType(InputType.TYPE_CLASS_NUMBER);
         }
+        ArrayList<InputFilter> filters = new ArrayList<>();
         if (maxChars > 0) {
-            etInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxChars)});
+            filters.add(new InputFilter.LengthFilter(maxChars));
         }
+        if (textAllCaps) {
+            filters.add(new InputFilter.AllCaps());
+        }
+        etInput.setFilters(filters.toArray(new InputFilter[]{}));
         etInput.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN);
     }
 

@@ -21,12 +21,23 @@
         android:layout_height="wrap_content"
         app:label="CNP - 13 chars long"
         app:hint="Type here"
-        app:textAllCaps="true"
         app:inputType="digits"
         app:normalBackground="@color/text_gray"
         app:errorBackground="@color/light_red"
         app:correctBackground="@color/green"
         app:maxChars="13"
+        />
+
+    <ro.doruchidean.inputfields.view.InputField
+        android:id="@+id/input_field1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="Text all caps"
+        app:hint="Type here"
+        app:textAllCaps="true"
+        app:normalBackground="@color/text_gray"
+        app:errorBackground="@color/light_red"
+        app:correctBackground="@color/green"
         />
 
     <TextView
