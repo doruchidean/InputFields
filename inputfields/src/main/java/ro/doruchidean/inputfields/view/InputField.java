@@ -9,7 +9,9 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,6 +47,9 @@ public class InputField extends LinearLayout {
     private int normalBackground;
     private int errorBackground;
     private int correctBackground;
+    private View nextFocusView;
+    @Nullable
+    private TextView.OnEditorActionListener editorActionListener;
 
     public InputField(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -221,5 +226,27 @@ public class InputField extends LinearLayout {
 
     public interface ValidationChangedListener {
         void onInputValidationChanged();
+    }
+
+    public void setNextFocusView(View view) {
+        if (editorActionListener == null) {
+            initEditorActionListener();
+        }
+        nextFocusView = view;
+    }
+
+    private void initEditorActionListener() {
+        editorActionListener = new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT
+                    && nextFocusView != null) {
+                    nextFocusView.requestFocus();
+                }
+                return true;
+            }
+        };
+        etInput.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        etInput.setOnEditorActionListener(editorActionListener);
     }
 }

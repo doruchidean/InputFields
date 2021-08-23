@@ -36,9 +36,11 @@ public class MainActivity extends AppCompatActivity {
     private void initInputField() {
         inputField = findViewById(R.id.input_field);
         inputField.setValidator(new CNPValidator(true), validationChangedListener);
+        InputField inputField1 = findViewById(R.id.input_field1);
+        inputField.setNextFocusView(inputField1);
     }
 
-    private InputField.ValidationChangedListener validationChangedListener = new InputField.ValidationChangedListener() {
+    private final InputField.ValidationChangedListener validationChangedListener = new InputField.ValidationChangedListener() {
         @Override
         public void onInputValidationChanged() {
             if (inputField.isValid()
