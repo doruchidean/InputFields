@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
@@ -104,10 +103,6 @@ public class AutocompleteInput extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(s)) {
-                    setNormalBackground();
-                    return;
-                }
                 if (validator == null) {
                     return;
                 }

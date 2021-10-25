@@ -132,10 +132,6 @@ public class InputField extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(s)) {
-                    setNormalBackground();
-                    return;
-                }
                 if (validator == null) {
                     return;
                 }
