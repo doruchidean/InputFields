@@ -2,9 +2,11 @@ package ro.doruchidean.inputfieldsexample;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private InputField inputField;
     private AutocompleteInput autocompleteInput;
     private SpinnerInput spinnerInput;
+    private TextView tvStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         initInputField();
         initAutocompleteInput();
         initSpinnerInput();
+
+        tvStatus = findViewById(R.id.tv_validation_status);
     }
 
     private void initInputField() {
@@ -46,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
             if (inputField.isValid()
                     && autocompleteInput.isValid()
                     && spinnerInput.isValid()) {
-                showToast("All input is valid.");
+                tvStatus.setText("All input is valid.");
+                tvStatus.setBackgroundColor(ContextCompat.getColor(tvStatus.getContext(), R.color.green));
             } else {
-                showToast("Some fields are not valid.");
+                tvStatus.setText("Some fields are not valid.");
+                tvStatus.setBackgroundColor(ContextCompat.getColor(tvStatus.getContext(), R.color.light_red));
             }
         }
     };

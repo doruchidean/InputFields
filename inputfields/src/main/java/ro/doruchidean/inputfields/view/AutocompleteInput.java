@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
@@ -107,7 +108,9 @@ public class AutocompleteInput extends LinearLayout {
                     return;
                 }
                 Integer errorMessage = validator.getErrorMessageResId(s.toString());
-                if (errorMessage != null) {
+                if (TextUtils.isEmpty(s)) {
+                    setNormalBackground();
+                } else if (errorMessage != null) {
                     showError(errorMessage);
                 } else {
                     hideError();

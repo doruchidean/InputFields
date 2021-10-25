@@ -136,7 +136,9 @@ public class InputField extends LinearLayout {
                     return;
                 }
                 Integer errorMessage = validator.getErrorMessageResId(s.toString());
-                if (errorMessage != null) {
+                if (TextUtils.isEmpty(s)) {
+                    setNormalBackground();
+                } else if (errorMessage != null) {
                     showError(errorMessage);
                 } else {
                     hideError();
