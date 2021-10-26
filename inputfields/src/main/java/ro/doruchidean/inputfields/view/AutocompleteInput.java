@@ -208,9 +208,7 @@ public class AutocompleteInput extends LinearLayout {
     }
 
     public void setSelectedItem(@Nullable String item) {
-        if (item != null) {
-            autoCompleteTextView.setText(item);
-        }
+        autoCompleteTextView.setText(item);
     }
 
     public void setSelectionListener(SelectionListener listener) {

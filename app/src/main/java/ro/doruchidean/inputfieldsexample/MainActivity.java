@@ -31,11 +31,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        tvStatus = findViewById(R.id.tv_validation_status);
+
         initInputField();
         initAutocompleteInput();
         initSpinnerInput();
 
-        tvStatus = findViewById(R.id.tv_validation_status);
     }
 
     private void initInputField() {
