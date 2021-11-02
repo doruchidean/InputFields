@@ -16,4 +16,5 @@
     <string name="validation_message_name_too_short">The name field is too short</string>
     <string name="validation_message_email_empty">The email field is empty.</string>
     <string name="validation_message_invalid_email">The email field is invalid.</string>
+    <string name="validation_message_field_too_short">This field is too short.</string>
 </resources>

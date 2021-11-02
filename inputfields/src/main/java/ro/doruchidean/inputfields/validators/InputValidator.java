@@ -10,6 +10,6 @@ public abstract class InputValidator {
         this.isMandatory = isMandatory;
     }
 
-    public abstract @Nullable Integer getErrorMessageResId(String input);
+    public abstract @Nullable Integer getErrorMessageResId(@Nullable String input);
 
 }
