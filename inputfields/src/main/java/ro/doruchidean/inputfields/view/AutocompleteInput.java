@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,7 @@ public class AutocompleteInput extends LinearLayout {
     private TextView tvLabel;
     private AutoCompleteTextView autoCompleteTextView;
     private TextView tvError;
+    private ProgressBar progressBar;
 
     private InputValidator validator;
 
@@ -68,6 +70,8 @@ public class AutocompleteInput extends LinearLayout {
         autoCompleteTextView.setOnItemClickListener(getOnSelectListener());
         autoCompleteTextView.addTextChangedListener(getOnInputChangedListener());
         findViewById(R.id.btn_open).setOnClickListener(onOpenListener());
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setVisibility(INVISIBLE);
     }
 
     private OnClickListener onOpenListener() {
@@ -231,6 +235,14 @@ public class AutocompleteInput extends LinearLayout {
 
     public AutoCompleteTextView getInputView() {
         return autoCompleteTextView;
+    }
+
+    public ProgressBar getProgressBar() {
+        return progressBar;
+    }
+
+    public void setIsLoading(Boolean isLoading) {
+        progressBar.setVisibility(isLoading ? VISIBLE : INVISIBLE);
     }
 
     public interface SelectionListener {

@@ -34,18 +34,27 @@
         android:imeOptions="actionNext"
         />
 
-    <ImageView
-        android:id="@+id/btn_open"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_dropdown_normal"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/autocomplete_tv"
         android:layout_alignBottom="@id/autocomplete_tv"
-        android:paddingStart="@dimen/half_horizontal_padding"
-        android:paddingEnd="@dimen/half_horizontal_padding"
-        />
+        >
+        <ImageView
+            android:id="@+id/btn_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_dropdown_normal"
+            android:layout_gravity="center"
+            />
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
 
     <TextView
         android:id="@+id/tv_autocomplete_error"

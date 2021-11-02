@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,17 +84,24 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
         }, validationChangedListener);
-        List<String> items = new ArrayList<>();
-        for (int i=0; i<10; i++) {
-            items.add("Autocomplete item " + i);
-        }
-        autocompleteInput.setItems(items);
-        autocompleteInput.setSelectionListener(new AutocompleteInput.SelectionListener() {
+        autocompleteInput.setIsLoading(true);
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onAutocompleteItemSelected(String item) {
-                showToast("Autocomplete item selected: " + item);
+            public void run() {
+                List<String> items = new ArrayList<>();
+                for (int i=0; i<10; i++) {
+                    items.add("Autocomplete item " + i);
+                }
+                autocompleteInput.setIsLoading(false);
+                autocompleteInput.setItems(items);
+                autocompleteInput.setSelectionListener(new AutocompleteInput.SelectionListener() {
+                    @Override
+                    public void onAutocompleteItemSelected(String item) {
+                        showToast("Autocomplete item selected: " + item);
+                    }
+                });
             }
-        });
+        }, 1000);
     }
 
     private void initSpinnerInput() {
