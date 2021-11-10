@@ -73,7 +73,7 @@ public class AutocompleteInput extends LinearLayout {
         autoCompleteTextView.addTextChangedListener(getOnInputChangedListener());
         findViewById(R.id.btn_open).setOnClickListener(onOpenListener());
         progressBar = findViewById(R.id.progress_bar);
-        progressBar.setVisibility(INVISIBLE);
+        progressBar.setVisibility(GONE);
     }
 
     private OnClickListener onOpenListener() {
@@ -244,7 +244,7 @@ public class AutocompleteInput extends LinearLayout {
     }
 
     public void setIsLoading(Boolean isLoading) {
-        progressBar.setVisibility(isLoading ? VISIBLE : INVISIBLE);
+        progressBar.setVisibility(isLoading ? VISIBLE : GONE);
     }
 
     public interface SelectionListener {

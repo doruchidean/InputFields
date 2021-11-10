@@ -69,7 +69,7 @@ public class InputField extends LinearLayout {
         etInput = findViewById(R.id.et_input_field_input);
         etInput.addTextChangedListener(getOnInputChangedListener());
         progressBar = findViewById(R.id.progress_bar);
-        progressBar.setVisibility(INVISIBLE);
+        progressBar.setVisibility(GONE);
         tvError = findViewById(R.id.tv_input_field_error);
     }
 
@@ -249,7 +249,7 @@ public class InputField extends LinearLayout {
     }
 
     public void setIsLoading(boolean isLoading) {
-        progressBar.setVisibility(isLoading ? VISIBLE : INVISIBLE);
+        progressBar.setVisibility(isLoading ? VISIBLE : GONE);
     }
 
     public void setNextFocusView(View view) {

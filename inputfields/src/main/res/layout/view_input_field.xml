@@ -24,26 +24,31 @@
         android:paddingEnd="@dimen/half_horizontal_padding"
         android:background="@drawable/bg_input_state_normal"
         >
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="@dimen/small_progress_bar"
-            android:layout_height="@dimen/small_progress_bar"
+        <FrameLayout
+            android:id="@+id/progress_bar_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            />
+            android:layout_centerVertical="true">
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="@dimen/small_progress_bar"
+                android:layout_height="@dimen/small_progress_bar"
+                android:layout_marginStart="@dimen/half_horizontal_padding"
+                />
+        </FrameLayout>
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_input_field_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:minHeight="@dimen/min_input_field_height"
-            android:layout_marginEnd="@dimen/half_horizontal_padding"
             android:maxLines="1"
             android:inputType="text"
             android:imeOptions="actionNext"
             android:layout_alignParentStart="true"
-            android:layout_toStartOf="@id/progress_bar"
+            android:layout_toStartOf="@id/progress_bar_container"
             android:background="@null"
             />
     </RelativeLayout>
