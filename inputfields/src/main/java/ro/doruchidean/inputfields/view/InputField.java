@@ -135,19 +135,28 @@ public class InputField extends LinearLayout {
                 if (validator == null) {
                     return;
                 }
-                Integer errorMessage = validator.getErrorMessageResId(s.toString());
-                if (TextUtils.isEmpty(s)) {
-                    setNormalBackground();
-                } else if (errorMessage != null) {
-                    showError(errorMessage);
-                } else {
-                    hideError();
-                }
+                refreshErrorState();
                 if (validationListener != null) {
                     validationListener.onInputValidationChanged();
                 }
             }
         };
+    }
+
+    public void refreshErrorState() {
+        Editable s = etInput.getText();
+        if (TextUtils.isEmpty(s)) {
+            hideError();
+            setNormalBackground();
+        } else {
+            Integer errorMessage = validator.getErrorMessageResId(s.toString());
+            if (errorMessage != null) {
+                showError(errorMessage);
+            } else {
+                hideError();
+                setCorrectBackground();
+            }
+        }
     }
 
     private void setNormalBackground() {
@@ -162,6 +171,10 @@ public class InputField extends LinearLayout {
         return errorBackground > 0 ? errorBackground : R.drawable.bg_input_state_error;
     }
 
+    private void setCorrectBackground() {
+        etInput.setBackgroundResource(getCorrectBackground());
+    }
+
     private int getCorrectBackground() {
         return correctBackground > 0 ? correctBackground : R.drawable.bg_input_state_normal;
     }
@@ -169,7 +182,6 @@ public class InputField extends LinearLayout {
     private void hideError() {
         tvError.setVisibility(GONE);
         tvError.setText(null);
-        etInput.setBackgroundResource(isValid() ? getCorrectBackground() : getNormalBackground());
     }
 
     private void showError(int errorMessage) {
@@ -212,9 +224,10 @@ public class InputField extends LinearLayout {
         etInput.setText(input);
     }
 
-    @Override
-    public void setOnClickListener(@Nullable OnClickListener l) {
+    public void setOnClickListener(@Nullable OnClickListener l, Boolean blockInput) {
         etInput.setClickable(true);
+        etInput.setFocusable(!blockInput);
+        etInput.setFocusableInTouchMode(!blockInput);
         etInput.setOnClickListener(l);
     }
 
