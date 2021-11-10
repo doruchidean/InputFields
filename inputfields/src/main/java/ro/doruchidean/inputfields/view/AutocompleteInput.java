@@ -39,6 +39,7 @@ public class AutocompleteInput extends LinearLayout {
     private AutoCompleteTextView autoCompleteTextView;
     private TextView tvError;
     private ProgressBar progressBar;
+    private View mainInputContainer;
 
     private InputValidator validator;
 
@@ -64,6 +65,7 @@ public class AutocompleteInput extends LinearLayout {
     private void initUI(Context context) {
         setOrientation(VERTICAL);
         LayoutInflater.from(context).inflate(R.layout.view_autocomplete_input, this, true);
+        mainInputContainer = findViewById(R.id.input_field_main_container);
         tvLabel = findViewById(R.id.tv_autocomplete_label);
         tvError = findViewById(R.id.tv_autocomplete_error);
         autoCompleteTextView = findViewById(R.id.autocomplete_tv);
@@ -176,17 +178,17 @@ public class AutocompleteInput extends LinearLayout {
     private void showError(int errorMessageReId) {
         tvError.setVisibility(VISIBLE);
         tvError.setText(errorMessageReId);
-        autoCompleteTextView.setBackgroundResource(getErrorBackground());
+        mainInputContainer.setBackgroundResource(getErrorBackground());
     }
 
     private void hideError() {
         tvError.setVisibility(GONE);
         tvError.setText(null);
-        autoCompleteTextView.setBackgroundResource(isValid() ? getCorrectBackground() : getNormalBackground());
+        mainInputContainer.setBackgroundResource(isValid() ? getCorrectBackground() : getNormalBackground());
     }
 
     private void setNormalBackground() {
-        autoCompleteTextView.setBackgroundResource(getNormalBackground());
+        mainInputContainer.setBackgroundResource(getNormalBackground());
     }
 
     private int getNormalBackground() {

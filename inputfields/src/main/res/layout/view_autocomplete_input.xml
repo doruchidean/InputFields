@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusable="false"
-    android:focusableInTouchMode="false">
+    android:orientation="vertical"
+    >
 
     <TextView
         android:id="@+id/tv_autocomplete_label"
@@ -18,43 +18,50 @@
         android:contentDescription="@string/label_input_here"
         />
 
-    <AutoCompleteTextView
-        android:id="@+id/autocomplete_tv"
+    <RelativeLayout
+        android:id="@+id/input_field_main_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/min_input_field_height"
         android:background="@drawable/bg_input_state_normal"
-        android:paddingTop="@dimen/quarter_horizontal_padding"
-        android:paddingBottom="@dimen/quarter_horizontal_padding"
         android:paddingStart="@dimen/half_horizontal_padding"
         android:paddingEnd="@dimen/half_horizontal_padding"
-        android:layout_below="@id/tv_autocomplete_label"
-        android:maxLines="1"
-        android:inputType="text"
-        android:imeOptions="actionNext"
-        />
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/autocomplete_tv"
-        android:layout_alignBottom="@id/autocomplete_tv"
         >
-        <ImageView
-            android:id="@+id/btn_open"
+        <FrameLayout
+            android:id="@+id/container_loading_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_dropdown_normal"
-            android:layout_gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            >
+            <ImageView
+                android:id="@+id/btn_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_dropdown_normal"
+                android:layout_gravity="center"
+                />
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="@dimen/small_progress_bar"
+                android:layout_height="@dimen/small_progress_bar"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <AutoCompleteTextView
+            android:id="@+id/autocomplete_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/min_input_field_height"
+            android:layout_marginEnd="@dimen/half_horizontal_padding"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/container_loading_bar"
+            android:maxLines="1"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:background="@null"
             />
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
-    </FrameLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_autocomplete_error"
@@ -62,9 +69,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/red"
         android:layout_marginTop="@dimen/quarter_horizontal_padding"
-        android:layout_below="@id/autocomplete_tv"
         android:textSize="@dimen/text_small"
         android:visibility="visible"
         />
 
-</RelativeLayout>
+</LinearLayout>

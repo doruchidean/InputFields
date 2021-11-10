@@ -34,6 +34,8 @@ public class InputField extends LinearLayout {
             INPUT_TYPE_DIGITS = 4;
 
     private TextView tvLabel;
+    private View mainContainer;
+    private View progressBar;
     private AppCompatEditText etInput;
     private TextView tvError;
 
@@ -56,16 +58,19 @@ public class InputField extends LinearLayout {
         setOrientation(VERTICAL);
         init(context);
         setupAttrs(context, attrs);
+        showNormalBackground();
     }
 
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.view_input_field, this, true);
-        setFocusable(false);
-        setFocusableInTouchMode(false);
+
+        mainContainer = findViewById(R.id.input_field_main_container);
         tvLabel = findViewById(R.id.tv_autocomplete_label);
         etInput = findViewById(R.id.et_input_field_input);
-        tvError = findViewById(R.id.tv_input_field_error);
         etInput.addTextChangedListener(getOnInputChangedListener());
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setVisibility(INVISIBLE);
+        tvError = findViewById(R.id.tv_input_field_error);
     }
 
     private void setupAttrs(Context context, @Nullable AttributeSet attrs) {
@@ -147,32 +152,36 @@ public class InputField extends LinearLayout {
         Editable s = etInput.getText();
         if (TextUtils.isEmpty(s)) {
             hideError();
-            setNormalBackground();
+            showNormalBackground();
         } else {
             Integer errorMessage = validator.getErrorMessageResId(s.toString());
             if (errorMessage != null) {
                 showError(errorMessage);
             } else {
                 hideError();
-                setCorrectBackground();
+                showCorrectBackground();
             }
         }
     }
 
-    private void setNormalBackground() {
-        etInput.setBackgroundResource(getNormalBackground());
+    private void showNormalBackground() {
+        mainContainer.setBackgroundResource(getNormalBackground());
     }
 
     private int getNormalBackground() {
         return normalBackground > 0 ? normalBackground : R.drawable.bg_input_state_normal;
     }
 
+    private void showErrorBackground() {
+        mainContainer.setBackgroundResource(getErrorBackground());
+    }
+
     private int getErrorBackground() {
         return errorBackground > 0 ? errorBackground : R.drawable.bg_input_state_error;
     }
 
-    private void setCorrectBackground() {
-        etInput.setBackgroundResource(getCorrectBackground());
+    private void showCorrectBackground() {
+        mainContainer.setBackgroundResource(getCorrectBackground());
     }
 
     private int getCorrectBackground() {
@@ -187,7 +196,7 @@ public class InputField extends LinearLayout {
     private void showError(int errorMessage) {
         tvError.setVisibility(VISIBLE);
         tvError.setText(errorMessage);
-        etInput.setBackgroundResource(getErrorBackground());
+        showErrorBackground();
     }
 
     public String getInput() {
@@ -237,6 +246,10 @@ public class InputField extends LinearLayout {
 
     public interface ValidationChangedListener {
         void onInputValidationChanged();
+    }
+
+    public void setIsLoading(boolean isLoading) {
+        progressBar.setVisibility(isLoading ? VISIBLE : INVISIBLE);
     }
 
     public void setNextFocusView(View view) {

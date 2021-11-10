@@ -35,9 +35,6 @@
         app:label="Text all caps"
         app:hint="Type here"
         app:textAllCaps="true"
-        app:normalBackground="@color/text_gray"
-        app:errorBackground="@color/light_red"
-        app:correctBackground="@color/green"
         />
 
     <TextView
