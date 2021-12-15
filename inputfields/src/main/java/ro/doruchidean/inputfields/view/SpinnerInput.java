@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ public class SpinnerInput extends FrameLayout {
     private TextView tvError;
     private Spinner spinner;
     private ArrayAdapter<String> listAdapter;
+    private ProgressBar progressBar;
     @Nullable
     private InputValidator validator;
     @Nullable
@@ -45,6 +47,8 @@ public class SpinnerInput extends FrameLayout {
         tvError = findViewById(R.id.tv_spinner_error);
         spinner = findViewById(R.id.sp_spinner);
         spinner.setOnItemSelectedListener(getOnPickListener());
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setVisibility(GONE);
     }
 
     private AdapterView.OnItemSelectedListener getOnPickListener() {
@@ -147,6 +151,14 @@ public class SpinnerInput extends FrameLayout {
         if (item != null) {
             spinner.setSelection(listAdapter.getPosition(item));
         }
+    }
+
+    public ProgressBar getProgressBar() {
+        return progressBar;
+    }
+
+    public void setIsLoading(Boolean isLoading) {
+        progressBar.setVisibility(isLoading ? VISIBLE : GONE);
     }
 
     public interface SelectionListener {

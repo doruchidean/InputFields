@@ -107,10 +107,17 @@ public class MainActivity extends AppCompatActivity {
     private void initSpinnerInput() {
         spinnerInput = findViewById(R.id.spinner_input);
         spinnerInput.setValidator(new NonEmptyValidator(true), validationChangedListener);
-        List<String> items = new ArrayList<>();
-        for (int i=0; i<10; i++) {
-            items.add("Spinner item " + i);
-        }
-        spinnerInput.setItems(items);
+        spinnerInput.setIsLoading(true);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                spinnerInput.setIsLoading(false);
+                List<String> items = new ArrayList<>();
+                for (int i=0; i<10; i++) {
+                    items.add("Spinner item " + i);
+                }
+                spinnerInput.setItems(items);
+            }
+        }, 1500);
     }
 }
