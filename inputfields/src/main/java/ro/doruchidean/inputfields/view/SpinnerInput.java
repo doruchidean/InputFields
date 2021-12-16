@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 import ro.doruchidean.inputfields.R;
+import ro.doruchidean.inputfields.model.CustomSelectionItem;
 import ro.doruchidean.inputfields.validators.InputValidator;
 
 public class SpinnerInput extends FrameLayout {
@@ -141,9 +142,14 @@ public class SpinnerInput extends FrameLayout {
         this.validationListener = withListener;
     }
 
-    public void setItems(List<String> items) {
+    public void setItems(List<String> items, @Nullable CustomSelectionItem customSpinnerItem) {
+        if (customSpinnerItem == null) {
+            customSpinnerItem = new CustomSelectionItem(R.layout.view_spinner_item, R.id.tv_spinner_text);
+        }
         listAdapter = new ArrayAdapter<>(getContext(),
-                R.layout.view_spinner_item, R.id.tv_spinner_text, items);
+                customSpinnerItem.getLayoutResId(),
+                customSpinnerItem.getTextViewResId(),
+                items);
         spinner.setAdapter(listAdapter);
     }
 
@@ -164,4 +170,5 @@ public class SpinnerInput extends FrameLayout {
     public interface SelectionListener {
         void onSpinnerItemSelected(String item);
     }
+
 }

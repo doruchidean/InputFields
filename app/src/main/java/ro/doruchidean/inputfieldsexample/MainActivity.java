@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 for (int i=0; i<10; i++) {
                     items.add("Spinner item " + i);
                 }
-                spinnerInput.setItems(items);
+                spinnerInput.setItems(items, null);
             }
         }, 1500);
     }
