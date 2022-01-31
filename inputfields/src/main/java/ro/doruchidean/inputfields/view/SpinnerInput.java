@@ -167,6 +167,12 @@ public class SpinnerInput extends FrameLayout {
         progressBar.setVisibility(isLoading ? VISIBLE : GONE);
     }
 
+    @Override
+    public void setEnabled(boolean isEnabled) {
+        super.setEnabled(isEnabled);
+        spinner.setEnabled(isEnabled);
+    }
+
     public interface SelectionListener {
         void onSpinnerItemSelected(String item);
     }

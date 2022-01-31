@@ -253,6 +253,12 @@ public class AutocompleteInput extends LinearLayout {
         progressBar.setVisibility(isLoading ? VISIBLE : GONE);
     }
 
+    @Override
+    public void setEnabled(boolean isEnabled) {
+        super.setEnabled(isEnabled);
+        autoCompleteTextView.setEnabled(isEnabled);
+    }
+
     public interface SelectionListener {
         void onAutocompleteItemSelected(String item);
     }
