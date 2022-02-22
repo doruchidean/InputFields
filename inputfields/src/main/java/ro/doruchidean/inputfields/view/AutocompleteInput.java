@@ -56,6 +56,7 @@ public class AutocompleteInput extends LinearLayout {
     private ArrayAdapter<String> listAdapter;
     private SelectionListener selectionListener;
     private boolean preventDropDownWhileTyping;
+    private View btnShowDropdown;
 
     public AutocompleteInput(@NonNull Context context,
                              @Nullable AttributeSet attrs) {
@@ -73,7 +74,8 @@ public class AutocompleteInput extends LinearLayout {
         autoCompleteTextView = findViewById(R.id.autocomplete_tv);
         autoCompleteTextView.setOnItemClickListener(getOnSelectListener());
         autoCompleteTextView.addTextChangedListener(getOnInputChangedListener());
-        findViewById(R.id.btn_open).setOnClickListener(onOpenListener());
+        btnShowDropdown = findViewById(R.id.btn_open);
+        btnShowDropdown.setOnClickListener(onOpenListener());
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(GONE);
     }
@@ -212,7 +214,7 @@ public class AutocompleteInput extends LinearLayout {
         return autoCompleteTextView.getText().toString();
     }
 
-    public void setItems(List<String> items, @Nullable CustomSelectionItem customSelectionItem, boolean preventDropDownWhileTyping) {
+    public void setItems(@NonNull List<String> items, @Nullable CustomSelectionItem customSelectionItem, boolean preventDropDownWhileTyping) {
         this.preventDropDownWhileTyping = preventDropDownWhileTyping;
         if (customSelectionItem == null) {
             customSelectionItem = new CustomSelectionItem(R.layout.view_spinner_item, R.id.tv_spinner_text);
@@ -222,6 +224,7 @@ public class AutocompleteInput extends LinearLayout {
                 customSelectionItem.getTextViewResId(),
                 items);
         autoCompleteTextView.setAdapter(listAdapter);
+        btnShowDropdown.setVisibility(items.isEmpty() ? View.INVISIBLE : View.GONE);
     }
 
     public void setSelectedItem(@Nullable String item) {
