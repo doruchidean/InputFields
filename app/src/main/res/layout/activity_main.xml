@@ -53,7 +53,6 @@
         app:inputType="text"
         app:hint="Must contain character `9`, 5 chars long"
         app:threshHold="1"
-        app:maxChars="5"
         />
 
 

@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     items.add("Autocomplete item " + i);
                 }
                 autocompleteInput.setIsLoading(false);
-                autocompleteInput.setItems(items, null);
+                autocompleteInput.setItems(items, null, false);
                 autocompleteInput.setSelectionListener(new AutocompleteInput.SelectionListener() {
                     @Override
                     public void onAutocompleteItemSelected(String item) {

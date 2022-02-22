@@ -55,6 +55,7 @@ public class AutocompleteInput extends LinearLayout {
     private InputField.ValidationChangedListener validationListener;
     private ArrayAdapter<String> listAdapter;
     private SelectionListener selectionListener;
+    private boolean preventDropDownWhileTyping;
 
     public AutocompleteInput(@NonNull Context context,
                              @Nullable AttributeSet attrs) {
@@ -124,6 +125,9 @@ public class AutocompleteInput extends LinearLayout {
                 }
                 if (validationListener != null) {
                     validationListener.onInputValidationChanged();
+                }
+                if (preventDropDownWhileTyping) {
+                    autoCompleteTextView.dismissDropDown();
                 }
             }
         };
@@ -208,7 +212,8 @@ public class AutocompleteInput extends LinearLayout {
         return autoCompleteTextView.getText().toString();
     }
 
-    public void setItems(List<String> items, @Nullable CustomSelectionItem customSelectionItem) {
+    public void setItems(List<String> items, @Nullable CustomSelectionItem customSelectionItem, boolean preventDropDownWhileTyping) {
+        this.preventDropDownWhileTyping = preventDropDownWhileTyping;
         if (customSelectionItem == null) {
             customSelectionItem = new CustomSelectionItem(R.layout.view_spinner_item, R.id.tv_spinner_text);
         }
