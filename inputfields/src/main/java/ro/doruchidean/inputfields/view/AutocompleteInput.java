@@ -224,7 +224,7 @@ public class AutocompleteInput extends LinearLayout {
                 customSelectionItem.getTextViewResId(),
                 items);
         autoCompleteTextView.setAdapter(listAdapter);
-        btnShowDropdown.setVisibility(items.isEmpty() ? View.INVISIBLE : View.GONE);
+        btnShowDropdown.setVisibility(items.isEmpty() ? View.INVISIBLE : View.VISIBLE);
     }
 
     public void setSelectedItem(@Nullable String item) {
