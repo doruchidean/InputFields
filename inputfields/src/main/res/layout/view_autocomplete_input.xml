@@ -48,7 +48,7 @@
                 android:layout_gravity="center"/>
         </FrameLayout>
 
-        <AutoCompleteTextView
+        <ro.doruchidean.inputfields.view.AutocompleteTextView
             android:id="@+id/autocomplete_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -37,7 +36,7 @@ public class AutocompleteInput extends LinearLayout {
             INPUT_TYPE_DIGITS = 4;
 
     private TextView tvLabel;
-    private AutoCompleteTextView autoCompleteTextView;
+    private AutocompleteTextView autoCompleteTextView;
     private TextView tvError;
     private ProgressBar progressBar;
     private View mainInputContainer;
@@ -84,7 +83,13 @@ public class AutocompleteInput extends LinearLayout {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
+                //force showing the drop-down with all items
+                autoCompleteTextView.setPreventFiltering(true);
+                if (!TextUtils.isEmpty(autoCompleteTextView.getText())) {
+                    autoCompleteTextView.setText(autoCompleteTextView.getText());
+                }
                 autoCompleteTextView.showDropDown();
+                autoCompleteTextView.setPreventFiltering(false);
             }
         };
     }
@@ -249,7 +254,7 @@ public class AutocompleteInput extends LinearLayout {
         }
     }
 
-    public AutoCompleteTextView getInputView() {
+    public AutocompleteTextView getInputView() {
         return autoCompleteTextView;
     }
 
