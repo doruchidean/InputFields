@@ -29,7 +29,7 @@ public class MinCharsValidator extends InputValidator {
             else if (length < minChars) return tooShortMessage;
             else return null;
         } else {
-            return length < minChars ? tooShortMessage : null;
+            return length == 0 ? null : length < minChars ? tooShortMessage : null;
         }
     }
 }
