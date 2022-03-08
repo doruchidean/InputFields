@@ -1,20 +1,6 @@
 <resources>
     <string name="app_name">InputFields</string>
     <string name="label_input_here">Type here…</string>
-    <string name="validation_message_phone_empty">The phone number is mandatory.</string>
-    <string name="validation_message_phone_invalid">Incorrect phone number.</string>
-    <string name="validation_message_phone_too_short">The phone number is too short.</string>
-    <string name="validation_message_empty_password">The password is mandatory.</string>
-    <string name="validation_message_password_short">The password is too short.</string>
-    <string name="validation_message_empty_field">This field is empty.</string>
-    <string name="validation_message_cnp_empty">The CNP field is empty.</string>
-    <string name="validation_message_cnp_invalid">The CNP field is not valid.</string>
-    <string name="validation_message_id_document_series_invalid">Id document series is invalid.</string>
-    <string name="validation_message_empty_address">The address field is empty.</string>
-    <string name="validation_message_address_incorrect">The address field must contain at least str and nr keys</string>
-    <string name="validation_message_name_empty">The name field is empty.</string>
-    <string name="validation_message_name_too_short">The name field is too short</string>
-    <string name="validation_message_email_empty">The email field is empty.</string>
-    <string name="validation_message_invalid_email">The email field is invalid.</string>
-    <string name="validation_message_field_too_short">This field is too short.</string>
+    <string name="validation_message_field_empty">This field is empty.</string>
+    <string name="validation_message_field_invalid">This field is invalid.</string>
 </resources>

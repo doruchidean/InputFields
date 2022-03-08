@@ -6,6 +6,14 @@ public abstract class InputValidator {
 
     public boolean isMandatory;
 
+    int emptyResId;
+    int invalidResId;
+
+    public void setErrorMessages(int emptyResId, int invalidResId) {
+        this.emptyResId = emptyResId;
+        this.invalidResId = invalidResId;
+    }
+
     public InputValidator(boolean isMandatory) {
         this.isMandatory = isMandatory;
     }
