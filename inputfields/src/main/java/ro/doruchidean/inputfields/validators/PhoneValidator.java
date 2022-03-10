@@ -6,15 +6,14 @@ import androidx.annotation.Nullable;
 
 public class PhoneValidator extends InputValidator {
 
-    private int tooShortResId;
-
     public PhoneValidator(boolean isMandatory) {
         super(isMandatory);
     }
 
     public void setErrorMessages(int emptyResId, int tooShortResId, int invalidResId) {
-        super.setErrorMessages(emptyResId, invalidResId);
+        this.emptyResId = emptyResId;
         this.tooShortResId = tooShortResId;
+        this.invalidResId = invalidResId;
     }
 
     @Nullable

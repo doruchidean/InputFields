@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 public class PasswordValidator extends InputValidator {
 
     private int passwordLength = 6;
-    private int tooShortResId;
 
     public PasswordValidator(boolean isMandatory) {
         super(isMandatory);
@@ -18,7 +17,8 @@ public class PasswordValidator extends InputValidator {
     }
 
     public void setErrorMessages(int emptyResId, int invalidResId, int tooShortResId) {
-        super.setErrorMessages(emptyResId, invalidResId);
+        this.invalidResId = invalidResId;
+        this.emptyResId = emptyResId;
         this.tooShortResId = tooShortResId;
     }
 
