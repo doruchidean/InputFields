@@ -29,7 +29,7 @@ public class CNPValidator extends InputValidator {
     @Override
     public Integer getErrorMessageResId(@Nullable String cnp) {
         if (TextUtils.isEmpty(cnp)) {
-            return isMandatory ? invalidMessageResId : null;
+            return isMandatory() ? invalidMessageResId : null;
         } else {
             assert cnp != null;
             return isCNPValid(cnp) ? null : invalidMessageResId;

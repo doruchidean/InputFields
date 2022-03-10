@@ -21,7 +21,7 @@ public class MinCharsValidator extends InputValidator {
             @Nullable String input
     ) {
         int length = input == null ? 0 : input.length();
-        if ((!isMandatory && length == 0) || length >= minChars) {
+        if ((!isMandatory() && length == 0) || length >= minChars) {
             return null;
         } else {
             return invalidMessageResId;

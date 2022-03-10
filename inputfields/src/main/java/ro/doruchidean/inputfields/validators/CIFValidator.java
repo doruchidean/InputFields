@@ -19,7 +19,7 @@ public class CIFValidator extends InputValidator {
             @Nullable String input
     ) {
         if (TextUtils.isEmpty(input)) {
-            return isMandatory ? invalidMessageResId : null;
+            return isMandatory() ? invalidMessageResId : null;
         } else {
             assert input != null;
             if (isCIFValid(input)) {

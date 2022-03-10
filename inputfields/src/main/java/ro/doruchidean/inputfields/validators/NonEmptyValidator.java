@@ -19,7 +19,7 @@ public class NonEmptyValidator extends InputValidator {
             @Nullable String input
     ) {
         if (TextUtils.isEmpty(input)) {
-            return isMandatory ? invalidMessageResId : null;
+            return isMandatory() ? invalidMessageResId : null;
         } else {
             return null;
         }

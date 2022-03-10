@@ -17,7 +17,7 @@ public class AddressValidator extends InputValidator {
     @Override
     public Integer getErrorMessageResId(String input) {
         if (TextUtils.isEmpty(input)) {
-            if (isMandatory) {
+            if (isMandatory()) {
                 return invalidMessageResId;
             }
         } else {

@@ -17,11 +17,11 @@ public class PhoneValidator extends InputValidator {
             @Nullable String input
     ) {
         if (input == null) {
-            return isMandatory ? invalidMessageResId : null;
+            return isMandatory() ? invalidMessageResId : null;
         }
         int length = input.length();
         if (length == 0) {
-            return isMandatory ? invalidMessageResId : null;
+            return isMandatory() ? invalidMessageResId : null;
         } else if (length < 10) {
             return invalidMessageResId;
         } else {

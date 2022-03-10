@@ -18,7 +18,7 @@ public class EmailValidator extends InputValidator {
     @Override
     public Integer getErrorMessageResId(@Nullable String input) {
         if (TextUtils.isEmpty(input)) {
-            if (isMandatory) {
+            if (isMandatory()) {
                 return invalidMessageResId;
             }
         } else if (!Patterns.EMAIL_ADDRESS.matcher(input).matches()) {
