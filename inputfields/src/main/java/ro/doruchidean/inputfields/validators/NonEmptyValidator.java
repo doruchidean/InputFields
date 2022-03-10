@@ -6,13 +6,22 @@ import androidx.annotation.Nullable;
 
 public class NonEmptyValidator extends InputValidator {
 
-    public NonEmptyValidator(boolean isMandatory) {
-        super(isMandatory);
+    public NonEmptyValidator(
+            boolean isMandatory,
+            int invalidMessageResId
+    ) {
+        super(isMandatory, invalidMessageResId);
     }
 
     @Nullable
     @Override
-    public Integer getErrorMessageResId(String input) {
-        return isMandatory && TextUtils.isEmpty(input) ? emptyResId : null;
+    public Integer getErrorMessageResId(
+            @Nullable String input
+    ) {
+        if (TextUtils.isEmpty(input)) {
+            return isMandatory ? invalidMessageResId : null;
+        } else {
+            return null;
+        }
     }
 }

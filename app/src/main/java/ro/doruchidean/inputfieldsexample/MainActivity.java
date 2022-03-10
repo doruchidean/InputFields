@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initInputField() {
         inputField = findViewById(R.id.input_field);
-        inputField.setValidator(new CNPValidator(true), validationChangedListener);
+        inputField.setValidator(new CNPValidator(true, R.string.message_invalid_field), validationChangedListener);
         InputField inputField1 = findViewById(R.id.input_field1);
         inputField.setNextFocusView(inputField1);
     }
@@ -68,18 +68,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void initAutocompleteInput() {
         autocompleteInput = findViewById(R.id.autocomplete_input);
-        autocompleteInput.setValidator(new InputValidator(true) {
+        autocompleteInput.setValidator(new InputValidator(true, R.string.message_invalid_field) {
             @Nullable
             @Override
             public Integer getErrorMessageResId(String input) {
                 if (TextUtils.isEmpty(input)) {
-                    return R.string.message_empty_auto_complete;
+                    return R.string.message_empty_field;
                 }
                 if (input.length() < 5) {
-                    return R.string.message_too_short_auto_complete;
+                    return R.string.message_too_short_field;
                 }
                 if (!input.contains("9")) {
-                    return R.string.message_invalid_auto_complete;
+                    return getInvalidMessageResId();
                 }
                 return null;
             }
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initSpinnerInput() {
         spinnerInput = findViewById(R.id.spinner_input);
-        spinnerInput.setValidator(new NonEmptyValidator(true), validationChangedListener);
+        spinnerInput.setValidator(new NonEmptyValidator(true, R.string.message_empty_field), validationChangedListener);
         spinnerInput.setIsLoading(true);
         new Handler().postDelayed(new Runnable() {
             @Override

@@ -7,8 +7,11 @@ import androidx.annotation.Nullable;
 
 public class EmailValidator extends InputValidator {
 
-    public EmailValidator(boolean isMandatory) {
-        super(isMandatory);
+    public EmailValidator(
+            boolean isMandatory,
+            int invalidMessageResId
+    ) {
+        super(isMandatory, invalidMessageResId);
     }
 
     @Nullable
@@ -16,10 +19,10 @@ public class EmailValidator extends InputValidator {
     public Integer getErrorMessageResId(@Nullable String input) {
         if (TextUtils.isEmpty(input)) {
             if (isMandatory) {
-                return emptyResId;
+                return invalidMessageResId;
             }
         } else if (!Patterns.EMAIL_ADDRESS.matcher(input).matches()) {
-            return invalidResId;
+            return invalidMessageResId;
         }
         return null;
     }

@@ -1,37 +1,36 @@
 package ro.doruchidean.inputfields.validators;
 
-import android.text.TextUtils;
-
 import androidx.annotation.Nullable;
 
 public class PhoneValidator extends InputValidator {
 
-    public PhoneValidator(boolean isMandatory) {
-        super(isMandatory);
-    }
-
-    public void setErrorMessages(int emptyResId, int tooShortResId, int invalidResId) {
-        this.emptyResId = emptyResId;
-        this.tooShortResId = tooShortResId;
-        this.invalidResId = invalidResId;
+    public PhoneValidator(
+            boolean isMandatory,
+            int invalidMessageResId
+    ) {
+        super(isMandatory, invalidMessageResId);
     }
 
     @Nullable
     @Override
-    public Integer getErrorMessageResId(String input) {
-        if (TextUtils.isEmpty(input)) {
-            if (isMandatory) {
-                return emptyResId;
-            }
+    public Integer getErrorMessageResId(
+            @Nullable String input
+    ) {
+        if (input == null) {
+            return isMandatory ? invalidMessageResId : null;
+        }
+        int length = input.length();
+        if (length == 0) {
+            return isMandatory ? invalidMessageResId : null;
+        } else if (length < 10) {
+            return invalidMessageResId;
         } else {
-            if (input.length() < 10) {
-                return tooShortResId;
-            }
             String firstChar = input.substring(0, 1);
             if (!firstChar.equals("0") && !firstChar.equals("+")) {
-                return invalidResId;
+                return invalidMessageResId;
+            } else {
+                return null;
             }
         }
-        return null;
     }
 }

@@ -6,26 +6,33 @@ import androidx.annotation.Nullable;
 
 public class CIFValidator extends InputValidator {
 
-    public CIFValidator(boolean isMandatory) {
-        super(isMandatory);
+    public CIFValidator(
+            boolean isMandatory,
+            int invalidMessageResId
+    ) {
+        super(isMandatory, invalidMessageResId);
     }
 
     @Nullable
     @Override
-    public Integer getErrorMessageResId(@Nullable String input) {
+    public Integer getErrorMessageResId(
+            @Nullable String input
+    ) {
         if (TextUtils.isEmpty(input)) {
-            return isMandatory ? emptyResId : null;
+            return isMandatory ? invalidMessageResId : null;
         } else {
             assert input != null;
             if (isCIFValid(input)) {
                 return null;
             } else {
-                return invalidResId;
+                return invalidMessageResId;
             }
         }
     }
 
-    private boolean isCIFValid(String cif) {
+    private boolean isCIFValid(
+            String cif
+    ) {
         if (!TextUtils.isDigitsOnly(cif.replace(" ", ""))) {
             cif = cif.replace("RO", "").trim();
         }

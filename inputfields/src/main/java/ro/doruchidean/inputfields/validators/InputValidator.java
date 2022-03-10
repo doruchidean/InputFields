@@ -2,20 +2,21 @@ package ro.doruchidean.inputfields.validators;
 
 import androidx.annotation.Nullable;
 
-import ro.doruchidean.inputfields.R;
-
 public abstract class InputValidator {
 
-    public boolean isMandatory;
+    boolean isMandatory;
+    int invalidMessageResId;
 
-    public int emptyResId = R.string.validation_message_field_empty;
-    public int invalidResId = R.string.validation_message_field_invalid;
-    public int tooShortResId = R.string.validation_message_field_too_short;
 
-    public InputValidator(boolean isMandatory) {
+    public InputValidator(boolean isMandatory, int invalidMessageResId) {
         this.isMandatory = isMandatory;
+        this.invalidMessageResId = invalidMessageResId;
     }
 
     public abstract @Nullable Integer getErrorMessageResId(@Nullable String input);
+
+    public int getInvalidMessageResId() {
+        return invalidMessageResId;
+    }
 
 }

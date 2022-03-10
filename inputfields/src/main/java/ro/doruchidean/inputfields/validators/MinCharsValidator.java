@@ -6,21 +6,25 @@ public class MinCharsValidator extends InputValidator {
 
     private final int minChars;
 
-    public MinCharsValidator(boolean isMandatory, int minChars) {
-        super(isMandatory);
+    public MinCharsValidator(
+            boolean isMandatory,
+            int minChars,
+            int invalidMessageResId
+    ) {
+        super(isMandatory, invalidMessageResId);
         this.minChars = minChars;
     }
 
     @Nullable
     @Override
-    public Integer getErrorMessageResId(@Nullable String input) {
+    public Integer getErrorMessageResId(
+            @Nullable String input
+    ) {
         int length = input == null ? 0 : input.length();
-        if (isMandatory) {
-            if (length == 0) return emptyResId;
-            else if (length < minChars) return invalidResId;
-            else return null;
+        if ((!isMandatory && length == 0) || length >= minChars) {
+            return null;
         } else {
-            return length == 0 ? null : length < minChars ? invalidResId : null;
+            return invalidMessageResId;
         }
     }
 }

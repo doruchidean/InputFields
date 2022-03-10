@@ -18,22 +18,27 @@ public class CNPValidator extends InputValidator {
             0, 1900, 1900, 1800, 1800, 2000, 2000
     };
 
-    public CNPValidator(boolean isMandatory) {
-        super(isMandatory);
+    public CNPValidator(
+            boolean isMandatory,
+            int invalidMessageResId
+    ) {
+        super(isMandatory, invalidMessageResId);
     }
 
     @Nullable
     @Override
     public Integer getErrorMessageResId(@Nullable String cnp) {
         if (TextUtils.isEmpty(cnp)) {
-            return isMandatory ? emptyResId : null;
+            return isMandatory ? invalidMessageResId : null;
         } else {
             assert cnp != null;
-            return isCNPValid(cnp) ? null : invalidResId;
+            return isCNPValid(cnp) ? null : invalidMessageResId;
         }
     }
 
-    private boolean isCNPValid(@NonNull String cnp) {
+    private boolean isCNPValid(
+            @NonNull String cnp
+    ) {
         if (cnp.length() < 13) {
             return false;
         }
@@ -63,7 +68,9 @@ public class CNPValidator extends InputValidator {
         return dayOfMonth <= maxDayOfMonth;
     }
 
-    private int[] getDigits(String cnp) {
+    private int[] getDigits(
+            String cnp
+    ) {
         int[] digits = new int[LENGTH];
         for (int i = 0; i < LENGTH; i++) {
             char c = cnp.charAt(i);
@@ -75,7 +82,9 @@ public class CNPValidator extends InputValidator {
         return digits;
     }
 
-    private int getControlSum(int[] twelveDigits) {
+    private int getControlSum(
+            int[] twelveDigits
+    ) {
         int k = 0;
         for (int i = 0; i < 12; i++) {
             k += CONTROL_VALUES[i] * twelveDigits[i];

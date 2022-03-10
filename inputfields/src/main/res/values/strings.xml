@@ -1,7 +1,4 @@
 <resources>
     <string name="app_name">InputFields</string>
     <string name="label_input_here">Type here…</string>
-    <string name="validation_message_field_empty">This field is empty.</string>
-    <string name="validation_message_field_invalid">This field is invalid.</string>
-    <string name="validation_message_field_too_short">This field is too short.</string>
 </resources>

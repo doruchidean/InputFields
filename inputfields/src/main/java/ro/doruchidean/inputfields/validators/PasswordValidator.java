@@ -1,36 +1,37 @@
 package ro.doruchidean.inputfields.validators;
 
-import android.text.TextUtils;
-
 import androidx.annotation.Nullable;
 
 public class PasswordValidator extends InputValidator {
 
-    private int passwordLength = 6;
+    private final int passwordLength;
+    private final int emptyResId;
 
-    public PasswordValidator(boolean isMandatory) {
-        super(isMandatory);
-    }
-
-    public void setPasswordLength(int passwordLength) {
+    public PasswordValidator(
+            int emptyMessageResId,
+            int invalidMessageResId,
+            int passwordLength
+    ) {
+        super(true, invalidMessageResId);
         this.passwordLength = passwordLength;
-    }
-
-    public void setErrorMessages(int emptyResId, int invalidResId, int tooShortResId) {
-        this.invalidResId = invalidResId;
-        this.emptyResId = emptyResId;
-        this.tooShortResId = tooShortResId;
+        this.emptyResId = emptyMessageResId;
     }
 
     @Nullable
     @Override
-    public Integer getErrorMessageResId(String input) {
-        if (TextUtils.isEmpty(input)) {
-            if (isMandatory) {
+    public Integer getErrorMessageResId(
+            @Nullable String input
+    ) {
+        if (input == null) {
+            return emptyResId;
+        } else {
+            int length = input.length();
+            if (length == 0) {
                 return emptyResId;
             }
-        } else if (input.length() < passwordLength) {
-            return tooShortResId;
+            if (length < passwordLength) {
+                return invalidMessageResId;
+            }
         }
         return null;
     }
