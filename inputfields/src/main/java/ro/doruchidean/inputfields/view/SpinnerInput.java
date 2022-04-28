@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.List;
@@ -91,16 +92,13 @@ public class SpinnerInput extends FrameLayout {
             tvError.setVisibility(GONE);
             tvError.setText("");
         }
-        spinner.setBackgroundResource(errorBackground > 0 ?
-                errorBackground : R.drawable.bg_input_state_error);
+        spinner.setBackgroundResource(getErrorBackground());
     }
 
     public void hideError() {
         tvError.setVisibility(GONE);
         tvError.setText(null);
-        spinner.setBackgroundResource(isValid() ?
-                correctBackground > 0 ? correctBackground : R.drawable.bg_input_state_normal :
-                normalBackground > 0 ? normalBackground : R.drawable.bg_input_state_normal);
+        spinner.setBackgroundResource(isValid() ? getCorrectBackground() : getNormalBackground());
     }
 
     public boolean isValid() {
@@ -134,6 +132,22 @@ public class SpinnerInput extends FrameLayout {
             return null;
         }
         return listAdapter.getItem(spinner.getSelectedItemPosition());
+    }
+
+    private int getNormalBackground() {
+        return normalBackground > 0 ? normalBackground : R.drawable.bg_input_state_normal;
+    }
+
+    private int getErrorBackground() {
+        return errorBackground > 0 ? errorBackground : R.drawable.bg_input_state_error;
+    }
+
+    private int getCorrectBackground() {
+        return correctBackground > 0 ? correctBackground : getNormalBackground();
+    }
+
+    public @NonNull TextView getLabelView() {
+        return tvLabel;
     }
 
     public void setValidator(@Nullable InputValidator validator,

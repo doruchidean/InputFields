@@ -212,11 +212,15 @@ public class AutocompleteInput extends LinearLayout {
     }
 
     private int getCorrectBackground() {
-        return correctBackground > 0 ? correctBackground : R.drawable.bg_input_state_normal;
+        return correctBackground > 0 ? correctBackground : getNormalBackground();
     }
 
     public @Nullable String getInput() {
         return autoCompleteTextView.getText().toString();
+    }
+
+    public @NonNull TextView getLabelView() {
+        return tvLabel;
     }
 
     public void setItems(@NonNull List<String> items, @Nullable CustomSelectionItem customSelectionItem, boolean preventDropDownWhileTyping) {

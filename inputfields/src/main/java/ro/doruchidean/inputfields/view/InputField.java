@@ -185,7 +185,11 @@ public class InputField extends LinearLayout {
     }
 
     private int getCorrectBackground() {
-        return correctBackground > 0 ? correctBackground : R.drawable.bg_input_state_normal;
+        return correctBackground > 0 ? correctBackground : getNormalBackground();
+    }
+
+    private TextView getLabelView() {
+        return tvLabel;
     }
 
     private void hideError() {
@@ -229,7 +233,7 @@ public class InputField extends LinearLayout {
         }
     }
 
-    public void setText(String input) {
+    public void setText(@Nullable String input) {
         etInput.setText(input);
     }
 
