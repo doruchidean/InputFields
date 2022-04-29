@@ -188,7 +188,7 @@ public class InputField extends LinearLayout {
         return correctBackground > 0 ? correctBackground : getNormalBackground();
     }
 
-    private TextView getLabelView() {
+    public TextView getLabelView() {
         return tvLabel;
     }
 
