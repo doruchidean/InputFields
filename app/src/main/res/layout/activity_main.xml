@@ -35,6 +35,7 @@
         app:label="Text all caps"
         app:hint="Type here"
         app:textAllCaps="true"
+        app:rhsIcon="@drawable/ic_launcher_foreground"
         />
 
     <TextView

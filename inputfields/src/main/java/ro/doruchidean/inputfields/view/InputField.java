@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ public class InputField extends LinearLayout {
     private View progressBar;
     private AppCompatEditText etInput;
     private TextView tvError;
+    private ImageView ivRhsIcon;
 
     @Nullable
     private InputValidator validator;
@@ -65,12 +67,13 @@ public class InputField extends LinearLayout {
         LayoutInflater.from(context).inflate(R.layout.view_input_field, this, true);
 
         mainContainer = findViewById(R.id.input_field_main_container);
-        tvLabel = findViewById(R.id.tv_autocomplete_label);
+        tvLabel = findViewById(R.id.tv_input_field_label);
         etInput = findViewById(R.id.et_input_field_input);
         etInput.addTextChangedListener(getOnInputChangedListener());
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(GONE);
         tvError = findViewById(R.id.tv_input_field_error);
+        ivRhsIcon = findViewById(R.id.iv_input_field);
     }
 
     private void setupAttrs(Context context, @Nullable AttributeSet attrs) {
@@ -84,6 +87,7 @@ public class InputField extends LinearLayout {
         String hint;
         boolean textAllCaps;
         int maxChars;
+        int rhsIcon;
         try {
             label = attrsArray.getString(R.styleable.InputField_label);
             inputType = attrsArray.getInteger(R.styleable.InputField_inputType, INPUT_TYPE_TEXT);
@@ -93,10 +97,14 @@ public class InputField extends LinearLayout {
             errorBackground = attrsArray.getResourceId(R.styleable.InputField_errorBackground, -1);
             correctBackground = attrsArray.getResourceId(R.styleable.InputField_correctBackground, -1);
             maxChars = attrsArray.getInteger(R.styleable.InputField_maxChars, -1);
+            rhsIcon = attrsArray.getResourceId(R.styleable.InputField_rhsIcon, -1);
         } finally {
             attrsArray.recycle();
         }
         tvLabel.setText(label);
+        if (TextUtils.isEmpty(label)) {
+            tvLabel.setVisibility(GONE);
+        }
         etInput.setHint(hint);
         etInput.setAllCaps(textAllCaps);
         if (inputType == INPUT_TYPE_PASSWORD) {
@@ -121,6 +129,12 @@ public class InputField extends LinearLayout {
         }
         etInput.setFilters(filters.toArray(new InputFilter[]{}));
         etInput.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN);
+        if (rhsIcon > 0) {
+            ivRhsIcon.setVisibility(VISIBLE);
+            ivRhsIcon.setImageResource(rhsIcon);
+        } else {
+            ivRhsIcon.setVisibility(GONE);
+        }
     }
 
     private TextWatcher getOnInputChangedListener() {
@@ -246,6 +260,7 @@ public class InputField extends LinearLayout {
 
     public void setLabel(int stringResId) {
         tvLabel.setText(stringResId);
+        tvLabel.setVisibility(VISIBLE);
     }
 
     public interface ValidationChangedListener {
@@ -277,4 +292,9 @@ public class InputField extends LinearLayout {
         etInput.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         etInput.setOnEditorActionListener(editorActionListener);
     }
+
+    public void setIconClickListener(View.OnClickListener listener) {
+        ivRhsIcon.setOnClickListener(listener);
+    }
+
 }

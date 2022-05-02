@@ -22,6 +22,7 @@
         <attr name="errorBackground"/>
         <attr name="correctBackground"/>
         <attr name="maxChars" format="integer"/>
+        <attr name="rhsIcon" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="AutocompleteInput" parent="InputField">

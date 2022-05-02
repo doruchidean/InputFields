@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "ro.doruchidean.inputfieldsexample"
-        minSdkVersion 14
+        minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
