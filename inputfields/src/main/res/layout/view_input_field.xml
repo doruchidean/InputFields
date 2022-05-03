@@ -27,7 +27,6 @@
             android:layout_alignTop="@id/et_input_field_input"
             android:layout_alignBottom="@id/et_input_field_input"
             android:layout_alignParentEnd="true"
-            android:visibility="visible"
             android:src="@drawable/ic_dropdown_normal"
             />
 
@@ -38,7 +37,8 @@
             android:layout_marginStart="@dimen/half_horizontal_padding"
             android:layout_alignTop="@id/et_input_field_input"
             android:layout_alignBottom="@id/et_input_field_input"
-            android:layout_alignEnd="@id/et_input_field_input"
+            android:layout_toStartOf="@id/iv_input_field"
+            android:layout_alignWithParentIfMissing="true"
             android:layout_marginEnd="@dimen/half_horizontal_padding"
             />
 
@@ -64,7 +64,7 @@
             android:background="@null"
             android:layout_alignWithParentIfMissing="true"
             android:layout_toEndOf="@id/tv_persistent_hint"
-            android:layout_toStartOf="@id/iv_input_field"
+            android:layout_toStartOf="@id/progress_bar"
             android:gravity="center_vertical"
             />
     </RelativeLayout>
