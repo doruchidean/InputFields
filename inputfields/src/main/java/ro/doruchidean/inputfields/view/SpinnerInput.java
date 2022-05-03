@@ -2,6 +2,7 @@ package ro.doruchidean.inputfields.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -125,6 +126,9 @@ public class SpinnerInput extends FrameLayout {
             attrsArray.recycle();
         }
         tvLabel.setText(label);
+        if (TextUtils.isEmpty(label)) {
+            tvLabel.setVisibility(GONE);
+        }
     }
 
     public @Nullable String getInput() {
@@ -165,6 +169,11 @@ public class SpinnerInput extends FrameLayout {
                 customSpinnerItem.getTextViewResId(),
                 items);
         spinner.setAdapter(listAdapter);
+    }
+
+    public void setLabel(int stringResId) {
+        tvLabel.setText(stringResId);
+        tvLabel.setVisibility(VISIBLE);
     }
 
     public void setSelectedItem(@Nullable String item) {
