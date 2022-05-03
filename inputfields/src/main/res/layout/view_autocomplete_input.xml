@@ -21,31 +21,38 @@
         android:id="@+id/input_field_main_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_input_state_normal"
-        android:paddingStart="@dimen/half_horizontal_padding"
-        android:paddingEnd="@dimen/half_horizontal_padding"
+        android:paddingHorizontal="@dimen/half_horizontal_padding"
         >
-        <FrameLayout
-            android:id="@+id/container_loading_bar"
+
+        <TextView
+            android:id="@+id/tv_persistent_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_alignTop="@id/autocomplete_tv"
+            android:layout_alignBottom="@id/autocomplete_tv"
+            android:layout_marginEnd="@dimen/half_horizontal_padding"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            />
+
+        <ImageView
+            android:id="@+id/btn_open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            >
-            <ImageView
-                android:id="@+id/btn_open"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_dropdown_normal"
-                android:layout_gravity="center"
-                />
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="@dimen/small_progress_bar"
-                android:layout_height="@dimen/small_progress_bar"
-                android:layout_gravity="center"/>
-        </FrameLayout>
+            android:layout_alignTop="@id/autocomplete_tv"
+            android:layout_alignBottom="@id/autocomplete_tv"
+            android:src="@drawable/ic_dropdown_normal"
+            />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/small_progress_bar"
+            android:layout_height="@dimen/small_progress_bar"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/autocomplete_tv"
+            android:layout_alignBottom="@id/autocomplete_tv"
+            />
 
         <ro.doruchidean.inputfields.view.AutocompleteTextView
             android:id="@+id/autocomplete_tv"
@@ -53,8 +60,9 @@
             android:layout_height="wrap_content"
             android:minHeight="@dimen/min_input_field_height"
             android:layout_marginEnd="@dimen/half_horizontal_padding"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@id/container_loading_bar"
+            android:layout_toEndOf="@id/tv_persistent_hint"
+            android:layout_toStartOf="@id/btn_open"
+            android:layout_alignWithParentIfMissing="true"
             android:maxLines="1"
             android:inputType="text"
             android:imeOptions="actionNext"

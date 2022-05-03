@@ -5,6 +5,7 @@
         <attr name="normalBackground" format="reference"/>
         <attr name="errorBackground" format="reference"/>
         <attr name="correctBackground" format="reference"/>
+        <attr name="persistentHint"/>
     </declare-styleable>
 
     <declare-styleable name="InputField" parent="SpinnerInput">
@@ -23,6 +24,7 @@
         <attr name="correctBackground"/>
         <attr name="maxChars" format="integer"/>
         <attr name="rhsIcon" format="reference"/>
+        <attr name="persistentHint" format="string"/>
     </declare-styleable>
 
     <declare-styleable name="AutocompleteInput" parent="InputField">
@@ -35,5 +37,6 @@
         <attr name="correctBackground"/>
         <attr name="threshHold" format="integer"/>
         <attr name="maxChars"/>
+        <attr name="persistentHint"/>
     </declare-styleable>
 </resources>

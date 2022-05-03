@@ -26,6 +26,8 @@ public class SpinnerInput extends FrameLayout {
 
     private TextView tvLabel;
     private TextView tvError;
+    private TextView tvPersistentHint;
+    private View inputContainer;
     private Spinner spinner;
     private ArrayAdapter<String> listAdapter;
     private ProgressBar progressBar;
@@ -42,12 +44,15 @@ public class SpinnerInput extends FrameLayout {
         super(context, attrs);
         init(context);
         setupAttrs(context, attrs);
+        inputContainer.setBackgroundResource(getNormalBackground());
     }
 
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.view_spinner_input, this, true);
         tvLabel = findViewById(R.id.tv_spinner_label);
+        tvPersistentHint = findViewById(R.id.tv_persistent_hint);
         tvError = findViewById(R.id.tv_spinner_error);
+        inputContainer = findViewById(R.id.input_main_container);
         spinner = findViewById(R.id.sp_spinner);
         spinner.setOnItemSelectedListener(getOnPickListener());
         progressBar = findViewById(R.id.progress_bar);
@@ -93,13 +98,13 @@ public class SpinnerInput extends FrameLayout {
             tvError.setVisibility(GONE);
             tvError.setText("");
         }
-        spinner.setBackgroundResource(getErrorBackground());
+        inputContainer.setBackgroundResource(getErrorBackground());
     }
 
     public void hideError() {
         tvError.setVisibility(GONE);
         tvError.setText(null);
-        spinner.setBackgroundResource(isValid() ? getCorrectBackground() : getNormalBackground());
+        inputContainer.setBackgroundResource(isValid() ? getCorrectBackground() : getNormalBackground());
     }
 
     public boolean isValid() {
@@ -117,15 +122,23 @@ public class SpinnerInput extends FrameLayout {
         TypedArray attrsArray = context.getTheme().obtainStyledAttributes(attrs,
                 R.styleable.SpinnerInput, 0, 0);
         String label;
+        String persistentHint;
         try {
             label = attrsArray.getString(R.styleable.SpinnerInput_label);
             normalBackground = attrsArray.getResourceId(R.styleable.SpinnerInput_normalBackground, -1);
             errorBackground = attrsArray.getResourceId(R.styleable.SpinnerInput_errorBackground, -1);
             correctBackground = attrsArray.getResourceId(R.styleable.SpinnerInput_correctBackground, -1);
+            persistentHint = attrsArray.getString(R.styleable.SpinnerInput_persistentHint);
         } finally {
             attrsArray.recycle();
         }
         tvLabel.setText(label);
+        if (TextUtils.isEmpty(persistentHint)) {
+            tvPersistentHint.setVisibility(GONE);
+        } else {
+            tvPersistentHint.setVisibility(VISIBLE);
+            tvPersistentHint.setText(persistentHint);
+        }
         if (TextUtils.isEmpty(label)) {
             tvLabel.setVisibility(GONE);
         }

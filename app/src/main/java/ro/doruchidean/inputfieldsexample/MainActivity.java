@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ro.doruchidean.inputfields.validators.CNPValidator;
@@ -119,5 +120,8 @@ public class MainActivity extends AppCompatActivity {
                 spinnerInput.setItems(items, null);
             }
         }, 1500);
+
+        SpinnerInput hintSpinner = findViewById(R.id.spinner_input_persistent_hint);
+        hintSpinner.setItems(Arrays.asList("1asdasda", "2asdasda"), null);
     }
 }

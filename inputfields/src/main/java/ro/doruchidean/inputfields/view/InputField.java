@@ -39,6 +39,7 @@ public class InputField extends LinearLayout {
     private View progressBar;
     private AppCompatEditText etInput;
     private TextView tvError;
+    private TextView tvPersistentHint;
     private ImageView ivRhsIcon;
 
     @Nullable
@@ -68,6 +69,7 @@ public class InputField extends LinearLayout {
 
         mainContainer = findViewById(R.id.input_field_main_container);
         tvLabel = findViewById(R.id.tv_input_field_label);
+        tvPersistentHint = findViewById(R.id.tv_persistent_hint);
         etInput = findViewById(R.id.et_input_field_input);
         etInput.addTextChangedListener(getOnInputChangedListener());
         progressBar = findViewById(R.id.progress_bar);
@@ -88,6 +90,7 @@ public class InputField extends LinearLayout {
         boolean textAllCaps;
         int maxChars;
         int rhsIcon;
+        String persistentHint;
         try {
             label = attrsArray.getString(R.styleable.InputField_label);
             inputType = attrsArray.getInteger(R.styleable.InputField_inputType, INPUT_TYPE_TEXT);
@@ -98,6 +101,7 @@ public class InputField extends LinearLayout {
             correctBackground = attrsArray.getResourceId(R.styleable.InputField_correctBackground, -1);
             maxChars = attrsArray.getInteger(R.styleable.InputField_maxChars, -1);
             rhsIcon = attrsArray.getResourceId(R.styleable.InputField_rhsIcon, -1);
+            persistentHint = attrsArray.getString(R.styleable.InputField_persistentHint);
         } finally {
             attrsArray.recycle();
         }
@@ -105,7 +109,13 @@ public class InputField extends LinearLayout {
         if (TextUtils.isEmpty(label)) {
             tvLabel.setVisibility(GONE);
         }
-        etInput.setHint(hint);
+        if (!TextUtils.isEmpty(persistentHint)) {
+            tvPersistentHint.setVisibility(View.VISIBLE);
+            tvPersistentHint.setText(persistentHint);
+        } else {
+            tvPersistentHint.setVisibility(GONE);
+            etInput.setHint(hint);
+        }
         etInput.setAllCaps(textAllCaps);
         if (inputType == INPUT_TYPE_PASSWORD) {
             etInput.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);

@@ -41,6 +41,16 @@
         app:rhsIcon="@drawable/ic_launcher_foreground"
         />
 
+    <ro.doruchidean.inputfields.view.InputField
+        android:id="@+id/input_field_persistent_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:label="InputField - persistent hint"
+        app:persistentHint="HINT:"
+        app:normalBackground="@color/red"
+        />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,6 +69,18 @@
         app:threshHold="1"
         />
 
+    <ro.doruchidean.inputfields.view.AutocompleteInput
+        android:id="@+id/autocomplete_input_persistent_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="Autocomplete - persistent hint"
+        app:textAllCaps="true"
+        app:inputType="text"
+        app:persistentHint="Hint:"
+        app:normalBackground="@color/green"
+        app:threshHold="1"
+        />
+
 
     <TextView
         android:layout_width="match_parent"
@@ -73,6 +95,15 @@
         android:layout_height="wrap_content"
         app:label="Select an item"
         app:normalBackground="@color/red"
+        />
+
+    <ro.doruchidean.inputfields.view.SpinnerInput
+        android:id="@+id/spinner_input_persistent_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="Select an item - with persistent hint"
+        app:persistentHint="hint:"
+        app:normalBackground="@color/green"
         />
 
     <TextView

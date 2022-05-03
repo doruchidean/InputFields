@@ -38,6 +38,7 @@ public class AutocompleteInput extends LinearLayout {
     private TextView tvLabel;
     private AutocompleteTextView autoCompleteTextView;
     private TextView tvError;
+    private TextView tvPersistentHint;
     private ProgressBar progressBar;
     private View mainInputContainer;
 
@@ -62,6 +63,7 @@ public class AutocompleteInput extends LinearLayout {
         super(context, attrs);
         initUI(context);
         setupAttrs(context, attrs);
+        setNormalBackground();
     }
 
     private void initUI(Context context) {
@@ -69,6 +71,7 @@ public class AutocompleteInput extends LinearLayout {
         LayoutInflater.from(context).inflate(R.layout.view_autocomplete_input, this, true);
         mainInputContainer = findViewById(R.id.input_field_main_container);
         tvLabel = findViewById(R.id.tv_autocomplete_label);
+        tvPersistentHint = findViewById(R.id.tv_persistent_hint);
         tvError = findViewById(R.id.tv_autocomplete_error);
         autoCompleteTextView = findViewById(R.id.autocomplete_tv);
         autoCompleteTextView.setOnItemClickListener(getOnSelectListener());
@@ -148,6 +151,7 @@ public class AutocompleteInput extends LinearLayout {
                 R.styleable.AutocompleteInput, 0, 0);
         String label;
         String hint;
+        String persistentHint;
         int inputType;
         boolean textAllCaps;
         int threshHold;
@@ -155,6 +159,7 @@ public class AutocompleteInput extends LinearLayout {
         try {
             label = attrsArray.getString(R.styleable.AutocompleteInput_label);
             hint = attrsArray.getString(R.styleable.AutocompleteInput_hint);
+            persistentHint = attrsArray.getString(R.styleable.AutocompleteInput_persistentHint);
             inputType = attrsArray.getInteger(R.styleable.AutocompleteInput_inputType, INPUT_TYPE_TEXT);
             textAllCaps = attrsArray.getBoolean(R.styleable.AutocompleteInput_textAllCaps, false);
             normalBackground = attrsArray.getResourceId(R.styleable.AutocompleteInput_normalBackground, -1);
@@ -165,7 +170,13 @@ public class AutocompleteInput extends LinearLayout {
         } finally {
             attrsArray.recycle();
         }
-        autoCompleteTextView.setHint(hint);
+        if (TextUtils.isEmpty(persistentHint)) {
+            tvPersistentHint.setVisibility(GONE);
+            autoCompleteTextView.setHint(hint);
+        } else {
+            tvPersistentHint.setVisibility(VISIBLE);
+            tvPersistentHint.setText(persistentHint);
+        }
         autoCompleteTextView.setAllCaps(textAllCaps);
         autoCompleteTextView.setThreshold(threshHold);
         if (maxChars > 0) {
