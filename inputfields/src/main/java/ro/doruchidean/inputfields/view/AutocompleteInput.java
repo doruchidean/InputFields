@@ -35,12 +35,12 @@ public class AutocompleteInput extends LinearLayout {
             INPUT_TYPE_PHONE = 3,
             INPUT_TYPE_DIGITS = 4;
 
-    private TextView tvLabel;
-    private AutocompleteTextView autoCompleteTextView;
-    private TextView tvError;
-    private TextView tvPersistentHint;
-    private ProgressBar progressBar;
-    private View mainInputContainer;
+    public TextView tvLabel;
+    public AutocompleteTextView autoCompleteTextView;
+    public TextView tvError;
+    public TextView tvPersistentHint;
+    public ProgressBar progressBar;
+    public View mainInputContainer;
 
     private InputValidator validator;
 
@@ -170,9 +170,9 @@ public class AutocompleteInput extends LinearLayout {
         } finally {
             attrsArray.recycle();
         }
+        autoCompleteTextView.setHint(hint);
         if (TextUtils.isEmpty(persistentHint)) {
             tvPersistentHint.setVisibility(GONE);
-            autoCompleteTextView.setHint(hint);
         } else {
             tvPersistentHint.setVisibility(VISIBLE);
             tvPersistentHint.setText(persistentHint);
@@ -230,10 +230,6 @@ public class AutocompleteInput extends LinearLayout {
         return autoCompleteTextView.getText().toString();
     }
 
-    public @NonNull TextView getLabelView() {
-        return tvLabel;
-    }
-
     public void setItems(@NonNull List<String> items, @Nullable CustomSelectionItem customSelectionItem, boolean preventDropDownWhileTyping) {
         this.preventDropDownWhileTyping = preventDropDownWhileTyping;
         if (customSelectionItem == null) {
@@ -267,14 +263,6 @@ public class AutocompleteInput extends LinearLayout {
         } else {
             return validator.getErrorMessageResId(getInput()) == null;
         }
-    }
-
-    public AutocompleteTextView getInputView() {
-        return autoCompleteTextView;
-    }
-
-    public ProgressBar getProgressBar() {
-        return progressBar;
     }
 
     public void setIsLoading(Boolean isLoading) {

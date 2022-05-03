@@ -34,13 +34,13 @@ public class InputField extends LinearLayout {
             INPUT_TYPE_PHONE = 3,
             INPUT_TYPE_DIGITS = 4;
 
-    private TextView tvLabel;
+    public TextView tvLabel;
     private View mainContainer;
-    private View progressBar;
-    private AppCompatEditText etInput;
-    private TextView tvError;
-    private TextView tvPersistentHint;
-    private ImageView ivRhsIcon;
+    public View progressBar;
+    public AppCompatEditText etInput;
+    public TextView tvError;
+    public TextView tvPersistentHint;
+    public ImageView ivRhsIcon;
 
     @Nullable
     private InputValidator validator;
@@ -109,13 +109,13 @@ public class InputField extends LinearLayout {
         if (TextUtils.isEmpty(label)) {
             tvLabel.setVisibility(GONE);
         }
-        if (!TextUtils.isEmpty(persistentHint)) {
+        if (TextUtils.isEmpty(persistentHint)) {
+            tvPersistentHint.setVisibility(GONE);
+        } else {
             tvPersistentHint.setVisibility(View.VISIBLE);
             tvPersistentHint.setText(persistentHint);
-        } else {
-            tvPersistentHint.setVisibility(GONE);
-            etInput.setHint(hint);
         }
+        etInput.setHint(hint);
         etInput.setAllCaps(textAllCaps);
         if (inputType == INPUT_TYPE_PASSWORD) {
             etInput.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -212,10 +212,6 @@ public class InputField extends LinearLayout {
         return correctBackground > 0 ? correctBackground : getNormalBackground();
     }
 
-    public TextView getLabelView() {
-        return tvLabel;
-    }
-
     private void hideError() {
         tvError.setVisibility(GONE);
         tvError.setText(null);
@@ -234,10 +230,6 @@ public class InputField extends LinearLayout {
         } else {
             return null;
         }
-    }
-
-    public AppCompatEditText getInputView() {
-        return etInput;
     }
 
     public void setValidator(InputValidator validator, @Nullable ValidationChangedListener withListener) {

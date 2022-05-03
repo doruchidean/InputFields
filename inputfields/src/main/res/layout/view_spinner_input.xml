@@ -30,7 +30,7 @@
             android:layout_alignBottom="@id/sp_spinner"
             android:gravity="center_vertical"
             android:layout_marginStart="@dimen/half_horizontal_padding"
-            android:text="hint"
+            android:textColor="@color/text_gray"
             />
 
         <Spinner

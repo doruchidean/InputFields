@@ -50,6 +50,7 @@
             android:layout_alignBottom="@id/et_input_field_input"
             android:gravity="center_vertical"
             android:layout_marginHorizontal="@dimen/half_horizontal_padding"
+            android:textColor="@color/text_gray"
             />
 
         <androidx.appcompat.widget.AppCompatEditText

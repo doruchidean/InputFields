@@ -13,7 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.List;
@@ -24,13 +23,14 @@ import ro.doruchidean.inputfields.validators.InputValidator;
 
 public class SpinnerInput extends FrameLayout {
 
-    private TextView tvLabel;
-    private TextView tvError;
-    private TextView tvPersistentHint;
-    private View inputContainer;
-    private Spinner spinner;
+    public TextView tvLabel;
+    public TextView tvError;
+    public TextView tvPersistentHint;
+    public View inputContainer;
+    public Spinner spinner;
+    public ProgressBar progressBar;
+
     private ArrayAdapter<String> listAdapter;
-    private ProgressBar progressBar;
     @Nullable
     private InputValidator validator;
     @Nullable
@@ -163,10 +163,6 @@ public class SpinnerInput extends FrameLayout {
         return correctBackground > 0 ? correctBackground : getNormalBackground();
     }
 
-    public @NonNull TextView getLabelView() {
-        return tvLabel;
-    }
-
     public void setValidator(@Nullable InputValidator validator,
                              @Nullable InputField.ValidationChangedListener withListener) {
         this.validator = validator;
@@ -193,10 +189,6 @@ public class SpinnerInput extends FrameLayout {
         if (item != null) {
             spinner.setSelection(listAdapter.getPosition(item));
         }
-    }
-
-    public ProgressBar getProgressBar() {
-        return progressBar;
     }
 
     public void setIsLoading(Boolean isLoading) {
