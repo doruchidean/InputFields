@@ -145,7 +145,7 @@ public class SpinnerInput extends FrameLayout {
     }
 
     public @Nullable String getInput() {
-        if (listAdapter == null) {
+        if (listAdapter == null || listAdapter.isEmpty()) {
             return null;
         }
         return listAdapter.getItem(spinner.getSelectedItemPosition());
