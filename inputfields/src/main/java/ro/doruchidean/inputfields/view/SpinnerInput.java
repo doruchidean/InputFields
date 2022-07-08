@@ -71,11 +71,11 @@ public class SpinnerInput extends FrameLayout {
                         hideError();
                     }
                 }
-                if (validationListener != null) {
-                    validationListener.onInputValidationChanged();
-                }
                 if (selectionListener != null) {
                     selectionListener.onSpinnerItemSelected(getInput());
+                }
+                if (validationListener != null) {
+                    validationListener.onInputValidationChanged();
                 }
             }
 
