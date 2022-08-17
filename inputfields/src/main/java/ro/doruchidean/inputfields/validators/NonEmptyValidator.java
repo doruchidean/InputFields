@@ -1,7 +1,5 @@
 package ro.doruchidean.inputfields.validators;
 
-import android.text.TextUtils;
-
 import androidx.annotation.Nullable;
 
 public class NonEmptyValidator extends InputValidator {
@@ -21,8 +19,7 @@ public class NonEmptyValidator extends InputValidator {
         if (input == null) {
             return isMandatory() ? invalidMessageResId : null;
         } else {
-            if (input.contains(" ")) return invalidMessageResId;
-            return input.isEmpty() ? isMandatory() ? invalidMessageResId : null : null;
+            return input.trim().isEmpty() ? isMandatory() ? invalidMessageResId : null : null;
         }
     }
 }
