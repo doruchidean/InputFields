@@ -33,8 +33,10 @@ public class CIFValidator extends InputValidator {
     private boolean isCIFValid(
             String cif
     ) {
-        if (!TextUtils.isDigitsOnly(cif.replace(" ", ""))) {
-            cif = cif.replace("RO", "").trim();
+        if (cif.contains(" ")) return false;
+        if (!TextUtils.isDigitsOnly(cif)) {
+            cif = cif.replace("RO", "");
+            cif = cif.replace("ro", "");
         }
         if (!TextUtils.isDigitsOnly(cif)) {
             return false;

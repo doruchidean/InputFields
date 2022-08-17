@@ -2,16 +2,16 @@ package ro.doruchidean.inputfields.validators;
 
 import androidx.annotation.Nullable;
 
-public class NameValidator extends InputValidator {
+public class SingleNameValidator extends InputValidator {
 
     private final MinCharsValidator minCharsValidator;
 
-    public NameValidator(
+    public SingleNameValidator(
             boolean isMandatory,
             int invalidMessageResId
     ) {
         super(isMandatory, invalidMessageResId);
-        minCharsValidator = new MinCharsValidator(isMandatory, 3, invalidMessageResId);
+        minCharsValidator = new MinCharsValidator(isMandatory, 2, invalidMessageResId);
     }
 
     @Nullable
@@ -19,6 +19,10 @@ public class NameValidator extends InputValidator {
     public Integer getErrorMessageResId(
             @Nullable String input
     ) {
-        return minCharsValidator.getErrorMessageResId(input);
+        if (input != null) {
+            if (input.contains(" ")) return invalidMessageResId;
+            return minCharsValidator.getErrorMessageResId(input.trim());
+        }
+        return invalidMessageResId;
     }
 }

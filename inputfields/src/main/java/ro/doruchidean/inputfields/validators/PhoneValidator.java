@@ -19,6 +19,7 @@ public class PhoneValidator extends InputValidator {
         if (input == null) {
             return isMandatory() ? invalidMessageResId : null;
         }
+        if (input.contains(" ")) return invalidMessageResId;
         int length = input.length();
         if (length == 0) {
             return isMandatory() ? invalidMessageResId : null;

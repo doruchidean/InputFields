@@ -18,10 +18,11 @@ public class NonEmptyValidator extends InputValidator {
     public Integer getErrorMessageResId(
             @Nullable String input
     ) {
-        if (TextUtils.isEmpty(input)) {
+        if (input == null) {
             return isMandatory() ? invalidMessageResId : null;
         } else {
-            return null;
+            if (input.contains(" ")) return invalidMessageResId;
+            return input.isEmpty() ? isMandatory() ? invalidMessageResId : null : null;
         }
     }
 }
