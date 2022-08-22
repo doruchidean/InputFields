@@ -21,7 +21,13 @@ public class SingleNameValidator extends InputValidator {
     ) {
         if (input != null) {
             if (input.contains(" ")) return invalidMessageResId;
-            return minCharsValidator.getErrorMessageResId(input.trim());
+            char[] chars = input.toCharArray();
+            for (char c : chars) {
+                if (!Character.isAlphabetic(c)) {
+                    return invalidMessageResId;
+                }
+            }
+            return minCharsValidator.getErrorMessageResId(input);
         }
         return invalidMessageResId;
     }

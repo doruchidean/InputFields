@@ -39,7 +39,7 @@ public class CNPValidator extends InputValidator {
     private boolean isCNPValid(
             @NonNull String cnp
     ) {
-        if (cnp.length() < 13) {
+        if (cnp.length() != LENGTH) {
             return false;
         }
         int[] cnpDigits = getDigits(cnp);
