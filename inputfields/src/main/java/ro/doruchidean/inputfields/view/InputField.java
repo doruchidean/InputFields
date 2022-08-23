@@ -74,7 +74,6 @@ public class InputField extends LinearLayout {
         tvPersistentHint = findViewById(R.id.tv_persistent_hint);
         etInput = findViewById(R.id.et_input_field_input);
         etInput.addTextChangedListener(getOnInputChangedListener());
-        etInput.setOnFocusChangeListener(getOnFocusChangedListener());
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(GONE);
         tvError = findViewById(R.id.tv_input_field_error);
@@ -179,17 +178,6 @@ public class InputField extends LinearLayout {
                 refreshErrorState();
                 if (validationListener != null) {
                     validationListener.onInputValidationChanged();
-                }
-            }
-        };
-    }
-
-    private OnFocusChangeListener getOnFocusChangedListener() {
-        return new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    refreshErrorState();
                 }
             }
         };
