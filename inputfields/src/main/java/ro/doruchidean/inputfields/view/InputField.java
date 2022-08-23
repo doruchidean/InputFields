@@ -34,7 +34,8 @@ public class InputField extends LinearLayout {
             INPUT_TYPE_PHONE = 3,
             INPUT_TYPE_DIGITS = 4,
             CAP_WORDS_STRATEGY = 0,
-            CAP_SENTENCES_STRATEGY = 1;
+            CAP_SENTENCES_STRATEGY = 1,
+            CAP_ALL_STRATEGY = 2;
 
     public TextView tvLabel;
     private View mainContainer;
@@ -89,7 +90,6 @@ public class InputField extends LinearLayout {
         String label;
         int inputType;
         String hint;
-        boolean textAllCaps;
         int maxChars;
         int rhsIcon;
         int capitalizeStrategy;
@@ -98,7 +98,6 @@ public class InputField extends LinearLayout {
             label = attrsArray.getString(R.styleable.InputField_label);
             inputType = attrsArray.getInteger(R.styleable.InputField_inputType, INPUT_TYPE_TEXT);
             hint = attrsArray.getString(R.styleable.InputField_hint);
-            textAllCaps = attrsArray.getBoolean(R.styleable.InputField_textAllCaps, false);
             normalBackground = attrsArray.getResourceId(R.styleable.InputField_normalBackground, -1);
             errorBackground = attrsArray.getResourceId(R.styleable.InputField_errorBackground, -1);
             correctBackground = attrsArray.getResourceId(R.styleable.InputField_correctBackground, -1);
@@ -120,11 +119,11 @@ public class InputField extends LinearLayout {
             tvPersistentHint.setText(persistentHint);
         }
         etInput.setHint(hint);
-        etInput.setAllCaps(textAllCaps);
         if (inputType == INPUT_TYPE_PASSWORD) {
             inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD;
             etInput.setTransformationMethod(new PasswordTransformationMethod());
-        } else if (inputType == INPUT_TYPE_EMAIL) {
+        }
+        if (inputType == INPUT_TYPE_EMAIL) {
             inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
         } else if (inputType == INPUT_TYPE_PHONE) {
             inputType = InputType.TYPE_CLASS_PHONE;
@@ -135,14 +134,13 @@ public class InputField extends LinearLayout {
             inputType |= InputType.TYPE_TEXT_FLAG_CAP_WORDS;
         } else if (capitalizeStrategy == CAP_SENTENCES_STRATEGY) {
             inputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+        } else if (capitalizeStrategy == CAP_ALL_STRATEGY) {
+            inputType |= InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS;
         }
         etInput.setInputType(inputType);
         ArrayList<InputFilter> filters = new ArrayList<>();
         if (maxChars > 0) {
             filters.add(new InputFilter.LengthFilter(maxChars));
-        }
-        if (textAllCaps) {
-            filters.add(new InputFilter.AllCaps());
         }
         etInput.setFilters(filters.toArray(new InputFilter[]{}));
         etInput.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN);

@@ -18,7 +18,6 @@
             <enum name="phone" value="3"/>
             <enum name="digits" value="4"/>
         </attr>
-        <attr name="textAllCaps"/>
         <attr name="capitalizeStrategy" format="enum">
             <enum name="capWords" value="0"/>
             <enum name="capSentences" value="1"/>
