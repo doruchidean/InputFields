@@ -119,11 +119,12 @@ public class InputField extends LinearLayout {
             tvPersistentHint.setText(persistentHint);
         }
         etInput.setHint(hint);
-        if (inputType == INPUT_TYPE_PASSWORD) {
+        if (inputType == INPUT_TYPE_TEXT) {
+            inputType = InputType.TYPE_CLASS_TEXT;
+        } else if (inputType == INPUT_TYPE_PASSWORD) {
             inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD;
             etInput.setTransformationMethod(new PasswordTransformationMethod());
-        }
-        if (inputType == INPUT_TYPE_EMAIL) {
+        } else if (inputType == INPUT_TYPE_EMAIL) {
             inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
         } else if (inputType == INPUT_TYPE_PHONE) {
             inputType = InputType.TYPE_CLASS_PHONE;

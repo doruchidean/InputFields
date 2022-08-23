@@ -21,6 +21,7 @@
         <attr name="capitalizeStrategy" format="enum">
             <enum name="capWords" value="0"/>
             <enum name="capSentences" value="1"/>
+            <enum name="capChars" value="2"/>
         </attr>
         <attr name="normalBackground"/>
         <attr name="errorBackground"/>
