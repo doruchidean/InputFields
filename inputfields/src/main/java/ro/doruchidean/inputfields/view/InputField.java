@@ -32,7 +32,9 @@ public class InputField extends LinearLayout {
             INPUT_TYPE_PASSWORD = 1,
             INPUT_TYPE_EMAIL = 2,
             INPUT_TYPE_PHONE = 3,
-            INPUT_TYPE_DIGITS = 4;
+            INPUT_TYPE_DIGITS = 4,
+            CAP_WORDS_STRATEGY = 0,
+            CAP_SENTENCES_STRATEGY = 1;
 
     public TextView tvLabel;
     private View mainContainer;
@@ -72,6 +74,7 @@ public class InputField extends LinearLayout {
         tvPersistentHint = findViewById(R.id.tv_persistent_hint);
         etInput = findViewById(R.id.et_input_field_input);
         etInput.addTextChangedListener(getOnInputChangedListener());
+        etInput.setOnFocusChangeListener(getOnFocusChangedListener());
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(GONE);
         tvError = findViewById(R.id.tv_input_field_error);
@@ -90,6 +93,7 @@ public class InputField extends LinearLayout {
         boolean textAllCaps;
         int maxChars;
         int rhsIcon;
+        int capitalizeStrategy;
         String persistentHint;
         try {
             label = attrsArray.getString(R.styleable.InputField_label);
@@ -102,6 +106,7 @@ public class InputField extends LinearLayout {
             maxChars = attrsArray.getInteger(R.styleable.InputField_maxChars, -1);
             rhsIcon = attrsArray.getResourceId(R.styleable.InputField_rhsIcon, -1);
             persistentHint = attrsArray.getString(R.styleable.InputField_persistentHint);
+            capitalizeStrategy = attrsArray.getInteger(R.styleable.InputField_capitalizeStrategy, -1);
         } finally {
             attrsArray.recycle();
         }
@@ -117,19 +122,26 @@ public class InputField extends LinearLayout {
         }
         etInput.setHint(hint);
         etInput.setAllCaps(textAllCaps);
+        int finalInputType = -1;
         if (inputType == INPUT_TYPE_PASSWORD) {
-            etInput.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            finalInputType = InputType.TYPE_TEXT_VARIATION_PASSWORD;
             etInput.setTransformationMethod(new PasswordTransformationMethod());
         }
         if (inputType == INPUT_TYPE_EMAIL) {
-            etInput.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+            finalInputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
         }
         if (inputType == INPUT_TYPE_PHONE) {
-            etInput.setInputType(InputType.TYPE_CLASS_PHONE);
+            finalInputType = InputType.TYPE_CLASS_PHONE;
         }
         if (inputType == INPUT_TYPE_DIGITS) {
-            etInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+            finalInputType = InputType.TYPE_CLASS_NUMBER;
         }
+        if (capitalizeStrategy == CAP_WORDS_STRATEGY) {
+            finalInputType |= InputType.TYPE_TEXT_FLAG_CAP_WORDS;
+        } else if (capitalizeStrategy == CAP_SENTENCES_STRATEGY) {
+            finalInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+        }
+        etInput.setInputType(finalInputType);
         ArrayList<InputFilter> filters = new ArrayList<>();
         if (maxChars > 0) {
             filters.add(new InputFilter.LengthFilter(maxChars));
@@ -172,19 +184,26 @@ public class InputField extends LinearLayout {
         };
     }
 
-    public void refreshErrorState() {
-        Editable s = etInput.getText();
-        if (TextUtils.isEmpty(s)) {
-            hideError();
-            showNormalBackground();
-        } else {
-            Integer errorMessage = validator.getErrorMessageResId(s.toString());
-            if (errorMessage != null) {
-                showError(errorMessage);
-            } else {
-                hideError();
-                showCorrectBackground();
+    private OnFocusChangeListener getOnFocusChangedListener() {
+        return new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    refreshErrorState();
+                }
             }
+        };
+    }
+
+    public void refreshErrorState() {
+        if (validator == null) return;
+        Editable s = etInput.getText();
+        Integer errorMessage = validator.getErrorMessageResId(s.toString());
+        if (errorMessage != null) {
+            showError(errorMessage);
+        } else {
+            hideError();
+            showCorrectBackground();
         }
     }
 
@@ -285,7 +304,7 @@ public class InputField extends LinearLayout {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_NEXT
-                    && nextFocusView != null) {
+                        && nextFocusView != null) {
                     nextFocusView.requestFocus();
                 }
                 return true;
