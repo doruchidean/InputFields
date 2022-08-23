@@ -121,26 +121,22 @@ public class InputField extends LinearLayout {
         }
         etInput.setHint(hint);
         etInput.setAllCaps(textAllCaps);
-        int finalInputType = -1;
         if (inputType == INPUT_TYPE_PASSWORD) {
-            finalInputType = InputType.TYPE_TEXT_VARIATION_PASSWORD;
+            inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD;
             etInput.setTransformationMethod(new PasswordTransformationMethod());
-        }
-        if (inputType == INPUT_TYPE_EMAIL) {
-            finalInputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
-        }
-        if (inputType == INPUT_TYPE_PHONE) {
-            finalInputType = InputType.TYPE_CLASS_PHONE;
-        }
-        if (inputType == INPUT_TYPE_DIGITS) {
-            finalInputType = InputType.TYPE_CLASS_NUMBER;
+        } else if (inputType == INPUT_TYPE_EMAIL) {
+            inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+        } else if (inputType == INPUT_TYPE_PHONE) {
+            inputType = InputType.TYPE_CLASS_PHONE;
+        } else if (inputType == INPUT_TYPE_DIGITS) {
+            inputType = InputType.TYPE_CLASS_NUMBER;
         }
         if (capitalizeStrategy == CAP_WORDS_STRATEGY) {
-            finalInputType |= InputType.TYPE_TEXT_FLAG_CAP_WORDS;
+            inputType |= InputType.TYPE_TEXT_FLAG_CAP_WORDS;
         } else if (capitalizeStrategy == CAP_SENTENCES_STRATEGY) {
-            finalInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+            inputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
         }
-        etInput.setInputType(finalInputType);
+        etInput.setInputType(inputType);
         ArrayList<InputFilter> filters = new ArrayList<>();
         if (maxChars > 0) {
             filters.add(new InputFilter.LengthFilter(maxChars));
