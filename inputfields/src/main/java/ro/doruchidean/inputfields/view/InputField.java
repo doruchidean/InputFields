@@ -182,8 +182,11 @@ public class InputField extends LinearLayout {
         if (validator == null) return;
         Editable s = etInput.getText();
         if (TextUtils.isEmpty(s)) {
-            hideError();
-            showNormalBackground();
+            if (validator.isMandatory()) {
+                showError(validator.getInvalidMessageResId());
+            } else {
+                showNormalBackground();
+            }
         } else {
             assert s != null;
             Integer errorMessage = validator.getErrorMessageResId(s.toString());
