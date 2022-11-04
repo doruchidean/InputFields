@@ -127,11 +127,7 @@ public class AutocompleteInput extends LinearLayout {
                 }
                 Integer errorMessage = validator.getErrorMessageResId(s.toString());
                 if (TextUtils.isEmpty(s)) {
-                    if (validator.isMandatory()) {
-                        showError(validator.getInvalidMessageResId());
-                    } else {
-                        setNormalBackground();
-                    }
+                    setNormalBackground();
                 } else if (errorMessage != null) {
                     showError(errorMessage);
                 } else {
