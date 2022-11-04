@@ -47,12 +47,12 @@ public class InputField extends LinearLayout {
     public ImageView ivRhsIcon;
 
     @Nullable
-    private InputValidator validator;
+    public InputValidator validator;
     /**
-     * If set, it will invoke the callback method each time the validation is calculated
+     * If set, it will invoke the callback method each time the validation is performed
      */
     @Nullable
-    private ValidationChangedListener validationListener;
+    public ValidationChangedListener validationListener;
     private int normalBackground;
     private int errorBackground;
     private int correctBackground;

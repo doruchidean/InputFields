@@ -32,9 +32,9 @@ public class SpinnerInput extends FrameLayout {
 
     private ArrayAdapter<String> listAdapter;
     @Nullable
-    private InputValidator validator;
+    public InputValidator validator;
     @Nullable
-    private InputField.ValidationChangedListener validationListener;
+    public InputField.ValidationChangedListener validationListener;
     private int normalBackground;
     private int errorBackground;
     private int correctBackground;

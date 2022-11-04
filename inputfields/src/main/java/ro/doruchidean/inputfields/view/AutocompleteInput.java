@@ -42,7 +42,7 @@ public class AutocompleteInput extends LinearLayout {
     public ProgressBar progressBar;
     public View mainInputContainer;
 
-    private InputValidator validator;
+    public InputValidator validator;
 
     private int normalBackground;
     private int errorBackground;
@@ -52,7 +52,7 @@ public class AutocompleteInput extends LinearLayout {
      * If set, it will invoke the callback method each time the validation is calculated
      */
     @Nullable
-    private InputField.ValidationChangedListener validationListener;
+    public InputField.ValidationChangedListener validationListener;
     private ArrayAdapter<String> listAdapter;
     private SelectionListener selectionListener;
     private boolean preventDropDownWhileTyping;
