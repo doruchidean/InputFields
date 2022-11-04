@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 
@@ -172,7 +173,7 @@ public class InputField extends LinearLayout {
                 }
                 refreshErrorState();
                 if (validationListener != null) {
-                    validationListener.onInputValidationChanged();
+                    validationListener.onInputValidationChanged(InputField.this);
                 }
             }
         };
@@ -277,7 +278,7 @@ public class InputField extends LinearLayout {
     }
 
     public interface ValidationChangedListener {
-        void onInputValidationChanged();
+        void onInputValidationChanged(@NonNull Object caller);
     }
 
     public void setIsLoading(boolean isLoading) {

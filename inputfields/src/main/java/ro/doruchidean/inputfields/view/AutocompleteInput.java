@@ -138,7 +138,7 @@ public class AutocompleteInput extends LinearLayout {
                     hideError();
                 }
                 if (validationListener != null) {
-                    validationListener.onInputValidationChanged();
+                    validationListener.onInputValidationChanged(AutocompleteInput.this);
                 }
                 if (preventDropDownWhileTyping) {
                     autoCompleteTextView.dismissDropDown();
@@ -255,8 +255,7 @@ public class AutocompleteInput extends LinearLayout {
         this.selectionListener = listener;
     }
 
-    public void setValidator(InputValidator validator,
-                             @Nullable InputField.ValidationChangedListener withListener) {
+    public void setValidator(InputValidator validator, @Nullable InputField.ValidationChangedListener withListener) {
         this.validator = validator;
         this.validationListener = withListener;
     }

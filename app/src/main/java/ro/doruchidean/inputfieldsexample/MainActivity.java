@@ -1,5 +1,6 @@
 package ro.doruchidean.inputfieldsexample;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final InputField.ValidationChangedListener validationChangedListener = new InputField.ValidationChangedListener() {
         @Override
-        public void onInputValidationChanged() {
+        public void onInputValidationChanged(@NonNull Object caller) {
             if (inputField.isValid()
                     && autocompleteInput.isValid()
                     && spinnerInput.isValid()) {
